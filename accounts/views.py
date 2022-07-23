@@ -52,13 +52,11 @@ def registerUser(request):
         messages.success(request,"User successfully Created")
         # return redirect('accounts/login.html')
         return render(request, 'accounts/login.html')
-    else:
-        return HttpResponse("MEthod not post")
     
     return render(request,'accounts/register.html')
 
 def login(request):
-    if(request.user.is_authenticated):
+    if(request.user.is_authenticated and not request.user.is_authenticated):
         return redirect('/')
    
     if request.method == 'POST':
@@ -85,7 +83,7 @@ def logout(request):
             # pdb.set_trace()
 
 def userProfile(request):
-    if(request.user.is_authenticated):
+    if(request.user.is_authenticated and not request.user.is_superuser):
         customuser = request.user.customuser
        
         # getUser = User.objects.get(id=user.id)

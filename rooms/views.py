@@ -29,13 +29,46 @@ def roomsList(request):
 
 # Single room 
 def roomView(request,pk):
+    user=request.user
     room = Room.objects.get(id=pk)
-    # user = request.user
-    user = CustomUser.objects.get(user = request.user)
-    context = {'room':room,'user':user}
-    return render(request,'rooms/roomView.html',context)
-
-
+    recently_viewed_rooms = None
+    session = request.session
+    if( 'recently_viewed' in session ):
+        if room.id in session['recently_viewed']:
+            session['recently_viewed'].remove(room.id)
+        
+        recent_room = Room.objects.filter(pk__in = session['recently_viewed'])
+        recently_viewed_rooms = sorted(
+            recent_room, key=lambda x: session['recently_viewed'].index(x.id)
+        )
+        session['recently_viewed'].insert(0,room.id)
+        if len(session['recently_viewed'])> 5:
+            session['recently_viewed'].pop()
+    else:
+        session['recently_viewed'] = [room.id]
+        
+    session.modified = True
+    
+    
+    
+    
+    # session handeling
+    
+    
+    
+    if(not user.is_superuser):
+        # user = request.user
+        context = {'recently_viewed_rooms':recently_viewed_rooms}
+        if(user.is_authenticated):
+            user = CustomUser.objects.get(user = request.user)  
+            context.update({'room':room,'user':user})
+        else:
+            context.update({'room':room})
+            
+        return render(request,'rooms/roomView.html',context)
+    else:
+        # return HttpResponse("You are super admin")
+        return render(request,'accounts/login.html')
 
 
 
@@ -81,7 +114,7 @@ def addRoom(request):
             
 
 def deleteRoom(request,pk):
-    ownwer = request.user
+    owner = request.user
     room = Room.objects.get(id=pk)
     room.delete()
     roomList = Room.objects.all()
@@ -93,3 +126,11 @@ def deleteRoom(request,pk):
 def updateRoom(request,pk):
     print("Update Room")
     return HttpResponse("Update The room")
+
+
+
+def bookRoom(request,pk):
+    room = Room.objects.get(id=pk)
+    
+    context= {'room':room}
+    return render(request,'rooms/bookRoom.html',context)
