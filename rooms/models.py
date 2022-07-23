@@ -1,6 +1,7 @@
 from statistics import mode
 from django.db import models
 from accounts.models import CustomUser
+from django.conf import settings
 # Create your models here.
 
 PARKING_CHOICE = (
@@ -31,3 +32,29 @@ class Room(models.Model):
    
    def __str__(self):
         return self.address 
+     
+     
+PAYMENT_METHOD = (
+    ('online', 'Online Pay'),
+    ('offline', 'Offline Pay')
+)
+BOOK_STATUS = (
+    ('reserved', 'reserved'),
+    ('pending', 'pending'),
+    ('cancel', 'cancel')
+)
+
+
+class Booking():
+   customer = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True,related_name='customer_booking')
+   room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='room_booking')
+   number_of_room = models.PositiveIntegerField(default=0)
+   book_date =  models.DateTimeField(auto_now_add = True)
+   checkin_date = models.DateTimeField(blank=True, null=True)
+   checkout_date = models.DateTimeField(blank=True, null=True)
+   payment_method = models.CharField(max_length=15, choices=PAYMENT_METHOD, default='offline')
+   amount = models.PositiveIntegerField(default=0)
+   paid = models.BooleanField(default=False)
+   book_status = models.CharField(max_length=15, choices=BOOK_STATUS, default="pending")
+   
+   

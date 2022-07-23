@@ -127,3 +127,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # self
 # APPEND_SLASH=False
 ROOT_URLCONF = 'rentalZone.urls'
+# AUTH_USER_MODEL = 'accounts.CustomUser'

@@ -13,7 +13,7 @@
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
                 
               </div>
-                <form action="{% url 'register' %}" method="post" class="mx-1 mx-md-4">
+                <form action="{% url 'registerUser' %}" method="post" class="mx-1 mx-md-4">
                   <div class="alert alert-danger col-12">
                     {% if messages %} {% for message in messages %} {{message}} {% endfor %} {% endif %}
                     {% csrf_token %}
@@ -41,7 +41,7 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <input type="email" id="form3Example3c" class="form-control" placeholder="email" />
+                      <input type="email" id="form3Example3c" name="email" class="form-control" placeholder="email" />
                     </div>
                   </div>
 
@@ -67,7 +67,7 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <select class="form-select" aria-label="Default select example">
+                      <select class="form-select" aria-label="Default select example" name="user_type" >
                         <option default selected disabled value="notnull" name="user_type">--Select User Type--</option>
                         <option  value="customer" >Customer</option>
                         <option value="room_owner" >Room Owner</option>
