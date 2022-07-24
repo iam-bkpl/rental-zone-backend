@@ -2,20 +2,23 @@
 
 {% block content %}
 
-<form action="" method="get"  class="container" >
+<form action="/updateRoom/{{room.id}} " method="POST"  class="container" >
   <!-- 2 column grid layout with text inputs for the first and last names -->
 {% csrf_token %}
   <!-- Text input -->
   <div class="form-outline mb-4">
+
     <input type="number" name="number_of_room" id="form6Example3" class="form-control" placeholder="number_of_room" value={{room.number_of_room}} />
   </div>
+
   <!-- Text input -->
   <div class="form-outline mb-4">
     <input type="number" name="room_price" id="form6Example4" class="form-control" placeholder="room_price" value={{room.room_price}} />
   </div>
   <div class="form-outline mb-4">
     <input type="text" name="area_of_room" value={{room.area_of_room}} id="form6Example5" class="form-control" placeholder="Area of room" />
-  </div>
+  </div> 
+
   <!-- Email input -->
   <div class="form-outline mb-4">
     <input type="text" name="floor" value={{room.floor}} id="form6Example5" class="form-control" placeholder="floor" />

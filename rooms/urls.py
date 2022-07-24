@@ -8,7 +8,9 @@ urlpatterns = [
     path('roomList/',views.roomsList,name="roomList"),
     path('roomView/<int:pk>/', views.roomView,name="roomView"),
     path('deleteRoom/<int:pk>/', views.deleteRoom, name="deleteRoom"),
-    path('updateRoom/<int:pk>/',views.updateRoom, name="updateRoom"),
-    path('bookRoom/<int:pk>/',views.bookRoom, name="bookRoom")
-    
+    path('editRoom/<int:pk>/',views.editRoom,name="editRoom"),
+    path('updateRoom/<int:pk>',views.updateRoom, name="updateRoom"),
+    path('bookRoom/<int:pk>/',views.bookRoom, name="bookRoom"),
+    path('editBookStatus/<int:pk>/',views.editBookStatus,name="editBookStatus"),
+    path('updateBookStatus/<int:pk>/',views.updateBookStatus,name="updateBookStatus")
 ]

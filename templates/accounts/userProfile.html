@@ -26,10 +26,10 @@
               <h5 class="my-3">{{request.user.first_name}} </h5>
               <p class="text-muted mb-1"> {{role}}</p>
               <div class="d-flex justify-content-center mb-2">
-                <a href="/accounts/updateProfile/{{request.user.id}}">
+                <a href="/accounts/editProfile/{{request.user.id}}">
                 <button type="button" class="btn btn-primary">Update Profile</button>
                 </a>
-                <a href="/accounts/deleteProfile/{{request.user.id}}/">  <button type="button" class="btn btn-primary">Delete Profile</button></a>
+                <a href="/accounts/deleteProfile/{{request.user.id}}">  <button type="button" class="btn btn-primary">Delete Profile</button></a>
                {%if userInfo.user_type == 'room_owner' %}
                 <a href="{% url 'addRoom' %} "> <button type="button" class="btn btn-outline-primary ms-1"> Add Room </button></a>
               {% endif %}
@@ -84,7 +84,7 @@
                   <p class="mb-0">Email</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{userInfo.email}}</p>
+                  <p class="text-muted mb-0">{{request.user.email}}</p>
                 </div>
               </div>
               <hr>
@@ -102,16 +102,16 @@
                   <p class="mb-0">Role</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{role}}</p>
+                  <p class="text-muted mb-0">{{userInfo.user_type}}</p>
                 </div>
               </div>
-              <hr>
+              <hr>  
               <div class="row">
                 <div class="col-sm-3">
                   <p class="mb-0">Address</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                  <p class="text-muted mb-0">{{userInfo.address}}</p>
                 </div>
               </div>
             </div>
@@ -147,13 +147,23 @@
                   </div>
                 </td>
                 <td>
-                  <p class="fw-normal mb-1">{{bookedRoom}}</p>
-                  <p class="text-muted mb-0">IT department</p>
+                {% for bookedRoom in room.room_booking.all %}
+                  <p class="fw-normal mb-1">{{bookedRoom.customer}}</p>
+               {% endfor %}
                 </td>
                 <td>
-                  <span class="badge badge-success rounded-pill d-inline">Active</span>
+                  {% for bookedRoom in room.room_booking.all %}
+
+                 <a href="/editBookStatus/{{bookedRoom.id}}"> <p class="fw-normal mb-1">{{bookedRoom.book_status}}</p></a>
+               {% endfor %}
                 </td>
-                <td>Senior</td>
+                <td>
+                {% for bookedRoom in room.room_booking.all %}
+
+                  <p class="fw-normal mb-1">{{bookedRoom.number_of_rooms}}</p>
+               {% endfor %}
+
+                </td>
                 <td>
                   <button type="button" class="btn btn-link btn-sm btn-rounded">
                     Edit
