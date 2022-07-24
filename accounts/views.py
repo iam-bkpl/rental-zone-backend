@@ -1,4 +1,3 @@
-from email.errors import MessageError
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
@@ -120,11 +119,22 @@ def userProfile(request):
         return redirect('/')
 
 
-def deleteProfile(request,pk):
+def updateProfile(request,pk):
     if(request.user.is_authenticated):
         user = CustomUser.objects.get(id=pk)
-        user.delete()
-        messages.success(request,"User Deleted Successfully")
-        return render(request,"accounts/deleteProfile")
+
+
+        context = {}
+    return render(request,"accounts/updateProfile.html",context)
+        
+
+def deleteProfile(request,pk):
+    if(request.user.is_authenticated):
+        if request.method == "POST":
+            user = CustomUser.objects.get(id=pk)
+            user.active = False
+            user.delete()
+            messages.success(request,"User Deleted Successfully")
+            return render(request,'index.html')
     else:
         return redirect('/')

@@ -30,8 +30,8 @@ class Room(models.Model):
    description = models.TextField(null=True, blank=True)
    map_link= models.TextField(null=True, blank=True)
    
-   def __str__(self):
-        return self.address 
+#    def __str__(self):
+#         return self.address 
      
      
 PAYMENT_METHOD = (

@@ -26,8 +26,10 @@
               <h5 class="my-3">{{request.user.first_name}} </h5>
               <p class="text-muted mb-1"> {{role}}</p>
               <div class="d-flex justify-content-center mb-2">
+                <a href="/accounts/updateProfile/{{request.user.id}}">
                 <button type="button" class="btn btn-primary">Update Profile</button>
-                <a href="/accounts/deleteProfile/{request.user.id} ">  <button type="button" class="btn btn-primary">Delete Profile</button></a>
+                </a>
+                <a href="/accounts/deleteProfile/{{request.user.id}}/">  <button type="button" class="btn btn-primary">Delete Profile</button></a>
                {%if userInfo.user_type == 'room_owner' %}
                 <a href="{% url 'addRoom' %} "> <button type="button" class="btn btn-outline-primary ms-1"> Add Room </button></a>
               {% endif %}

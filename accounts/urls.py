@@ -12,4 +12,6 @@ urlpatterns = [
     
     # user profile
     path('userProfile/',views.userProfile, name="userProfile"),
+    path('deleteProfile/',views.deleteProfile, name="deleteProfile"),
+    path('updateProfile/',views.updateProfile, name="updateProfile")
 ]

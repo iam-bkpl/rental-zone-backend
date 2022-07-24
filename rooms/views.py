@@ -133,7 +133,7 @@ def updateRoom(request,pk):
         userType = user.user_type
         room = Room.objects.get(id=pk)
         if request.method == "GET":
-            if(request.user.is_authenticated and userType == "room_owner"):
+            if(userType == "room_owner"):
             # userInfo = CustomUser.objects.get(user_id = user.id)
                 number_of_room = request.POST.get('number_of_room') 
                 # available_rooms = request.POST.get('available_rooms')
@@ -159,12 +159,12 @@ def updateRoom(request,pk):
 
                 newRoomObj.save()
                 context = {'room':room}
-                return render(request,'rooms/roomView.html',context)
+                return render(request,'rooms/updateRoom.html',context)
         
         
-        return render(request,"rooms/updateRoom.html")
-    else:
-        return redirect('/')
+            return render(request,"rooms/updateRoom.html")
+        else:
+            return redirect('/')
 
 
 
