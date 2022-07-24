@@ -4,7 +4,6 @@ from accounts import views
 # from rooms import views
 
 urlpatterns = [
-    path('admin/',admin.site.urls),
     # path('',views.index),
     path('register/',views.registerUser, name="registerUser"),
     path('login/',views.login, name='login'),
@@ -12,6 +11,7 @@ urlpatterns = [
     
     # user profile
     path('userProfile/',views.userProfile, name="userProfile"),
-    path('deleteProfile/',views.deleteProfile, name="deleteProfile"),
-    path('updateProfile/',views.updateProfile, name="updateProfile")
+    path('deleteProfile/<int:pk>',views.deleteProfile, name="deleteProfile"),
+    path('editProfile/<int:pk>',views.editProfile, name="editProfile"),
+    path('updateProfile/<int:pk>',views.updateProfile, name="updateProfile"),
 ]
