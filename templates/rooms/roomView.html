@@ -48,6 +48,12 @@
             </div>
             {% endif %}
 
+            {% if user.user_type == "customer" %}
+            <a href="/bookRoom/{{room.id}}">
+              <button class="Danger">Book</button>
+            </a>
+            {% endif %}
+
           </div>
         </div>
       </div>
