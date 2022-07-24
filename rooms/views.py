@@ -9,15 +9,14 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 
 from accounts import models
-from .models import Room
+from .models import Room,Booking
 from accounts.models import CustomUser
+
 # Create your views here.
 
 # Main page
 def index(request):
     roomList = Room.objects.all()
-    print(roomList)
-    
     return render(request,'index.html')
 
 # List of room 
@@ -103,7 +102,7 @@ def addRoom(request):
                 map_link = request.POST.get('map_link')
                 
                 newRoomObj = Room(owner=user,number_of_room=number_of_room,room_price=room_price,area_of_room=area_of_room,floor=floor,parking=parking,address=address,city=city,state=state,country=country,image1=image1,image2=image2,image3=image3,image4=image4,description=description,map_link=map_link)
-                
+
                 newRoomObj.save()
                 messages.success(request,"Home Saved Successfully")
                 return render(request,'accounts/userProfile.html')
@@ -114,23 +113,83 @@ def addRoom(request):
             
 
 def deleteRoom(request,pk):
-    owner = request.user
-    room = Room.objects.get(id=pk)
-    room.delete()
-    roomList = Room.objects.all()
-    context = {'roomList':roomList}
-    messages.success(request,"Room Deleted Successfully")
-    return render(request, 'rooms/roomList.html',context)
-
-    
+    if(request.user.is_authenticated):
+        owner = request.user
+        room = Room.objects.get(id=pk)
+        room.delete()
+        roomList = Room.objects.all()
+        context = {'roomList':roomList}
+        messages.success(request,"Room Deleted Successfully")
+        return render(request, 'rooms/roomList.html',context)
+    else:
+        return redirect('/')
+        
 def updateRoom(request,pk):
-    print("Update Room")
-    return HttpResponse("Update The room")
+
+    # import pdb
+    # pdb.set_trace() 
+    if(request.user.is_authenticated):
+        user = request.user.customuser
+        userType = user.user_type
+        room = Room.objects.get(id=pk)
+        if request.method == "GET":
+            if(request.user.is_authenticated and userType == "room_owner"):
+            # userInfo = CustomUser.objects.get(user_id = user.id)
+                number_of_room = request.POST.get('number_of_room') 
+                # available_rooms = request.POST.get('available_rooms')
+                room_price = request.POST.get('room_price')
+                area_of_room = request.POST.get('area_of_room')
+                floor = request.POST.get('floor')
+                # room_type = request.POST.get('room_type')
+                parking = request.POST.get('parking')
+                if parking == 'yes':
+                    parking = True
+                address = request.POST.get('address')
+                city = request.POST.get('city')
+                state = request.POST.get('state')
+                country = request.POST.get('country')
+                image1 = request.FILES.get('image1')
+                image2 = request.FILES.get('image2')
+                image3 = request.FILES.get('image3')
+                image4 = request.FILES.get('image4')
+                description = request.POST.get('description')
+                map_link = request.POST.get('map_link')
+        
+                newRoomObj = Room(owner=user,number_of_room=number_of_room,room_price=room_price,area_of_room=area_of_room,floor=floor,parking=parking,address=address,city=city,state=state,country=country,image1=image1,image2=image2,image3=image3,image4=image4,description=description,map_link=map_link)
+
+                newRoomObj.save()
+                context = {'room':room}
+                return render(request,'rooms/roomView.html',context)
+        
+        
+        return render(request,"rooms/updateRoom.html")
+    else:
+        return redirect('/')
 
 
 
 def bookRoom(request,pk):
     room = Room.objects.get(id=pk)
-    
+    user = request.user.customuser
+    if request.method == "POST" and user.user_type == "customer":
+        number_of_rooms = request.POST.get('number_of_rooms')
+        book_date = request.POST.get('book_date')
+        checkin_date = request.POST.get('checkin_date')
+        checkout_date = request.POST.get('checkout_date')
+        payment_method = request.POST.get('payment_method')
+        amount = request.POST.get('amount')
+        paid = request.POST.get('paid')
+        if paid == 'paid':
+            paid = True
+
+        
+        bookRoomObj = Booking(
+            customer = user, room = room, number_of_rooms=number_of_rooms,
+            book_date=book_date, checkin_date=checkin_date, checkout_date=checkout_date, payment_method=payment_method, amount=amount,paid=paid
+        )
+        bookRoomObj.save()
+        messages.success(request,"Room Book Request Sent Successfully")
+        context = {'userInfo':user}
+        return render(request,'accounts/userProfile.html',context)
     context= {'room':room}
     return render(request,'rooms/bookRoom.html',context)

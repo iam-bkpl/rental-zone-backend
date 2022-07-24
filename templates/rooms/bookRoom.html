@@ -9,44 +9,58 @@
         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
           <div class="card" style="border-radius: 15px;">
             <div class="card-body p-5">
-              <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+              <h2 class="text-uppercase text-center mb-5">Book Room</h2>
 
-              <form>
-
+              <form method="POST" action="" >
+{% csrf_token %}
                 <div class="form-outline mb-4">
-                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example1cg">Your Name</label>
+                  <input type="number" name="number_of_rooms" placeholder="number_of_rooms" id="form3Example1cg" class="form-control nameform-control-lg" />
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="email" id="form3Example3cg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example3cg">Your Email</label>
+                  <label class="form-check-label" for="form2Example3g">
+                    Book Date</u></a>
+                  </label>
+                  <input type="date" name="book_date" placeholder="book_date" id="form3Example3cg" class="form-control form-control-lg" />
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example4cg">Password</label>
+                  <label class="form-check-label" for="form2Example3g">
+                    Checkin Date</u></a>
+                  </label>
+                  <input type="date" name="checkin_date" placeholder="checkin_date" id="form3Example4cg" class="form-control form-control-lg" />
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example4cdg">Repeat your password</label>
+                  <label class="form-check-label" for="form2Example3g">
+                    Checkout Date</u></a>
+                  </label>
+                  <input type="date" name="checkout_date" placeholder="checkout_date" id="form3Example4cdg" class="form-control form-control-lg" />
                 </div>
+                <div class="form-outline flex-fill mb-0">
+                  <select class="form-select" aria-label="Default select example" name="user_type" >
+                    <option selected default  value="null" name="payment_)_method">--Select Payment Method--</option>
+                    <option  value="online" >Online</option>
+                    <option  value="offline" >Offline</option>
+
+                  </select>
+
+                  <div class="form-outline mb-4">
+                    <input type="number" name="amount" placeholder="amount" id="form3Example1cg" class="form-control nameform-control-lg" />
+                  </div>
 
                 <div class="form-check d-flex justify-content-center mb-5">
-                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
+                  <input class="form-check-input me-2" type="checkbox" value="paid" name="paid" id="form2Example3cg" />
                   <label class="form-check-label" for="form2Example3g">
-                    I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
+                    paid</u></a>
                   </label>
                 </div>
 
-                <div class="d-flex justify-content-center">
-                  <button type="button"
-                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
-                </div>
 
-                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="#!"
-                    class="fw-bold text-body"><u>Login here</u></a></p>
+                <div class="d-flex justify-content-center">
+                  <button type="submit"
+                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Book</button>
+                </div>
 
               </form>
 

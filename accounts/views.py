@@ -1,4 +1,4 @@
-from multiprocessing import context
+from email.errors import MessageError
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
@@ -7,7 +7,7 @@ from accounts.models import CustomUser
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.models import User
 
-from rooms.models import Room
+from rooms.models import Booking, Room
 # Create your views here.
 
 def registerUser(request):
@@ -83,6 +83,9 @@ def logout(request):
             # pdb.set_trace()
 
 def userProfile(request):
+    
+    # import pdb
+    # pdb.set_trace()
     if(request.user.is_authenticated and not request.user.is_superuser):
         customuser = request.user.customuser
        
@@ -96,16 +99,32 @@ def userProfile(request):
                 context = {'userInfo':customuser, 'role':"Customer"}
                 
                 return render(request,'accounts/userProfile.html',context)
+        
         elif(customuser.user_type =="room_owner"):
             # userInfo =  request.userdata 
-           
+          
+            # import pdb
+            # pdb.set_trace() 
         
             # roomInfo = Room.objects.get(owner=customuser)
-            roomInfo = Room.objects.filter(owner=customuser).first()
+            rooms = Room.objects.filter(owner=customuser).all()
             # context = {'roomInfo':roomInfo,'userId':userInfo.id}
-            context = {'roomInfo':roomInfo,'userInfo':customuser, 'role':"Owner"}
+            bookedRoom = Booking.objects.exclude(customer__isnull = True)
+            context = {'rooms':rooms,'userInfo':customuser, 'role':"Owner",
+                       'bookedRoom':bookedRoom
+                       }
             return render(request,'accounts/userProfile.html',context)
         else:
             return HttpResponse("Login to View your Profile")
+    else:
+        return redirect('/')
+
+
+def deleteProfile(request,pk):
+    if(request.user.is_authenticated):
+        user = CustomUser.objects.get(id=pk)
+        user.delete()
+        messages.success(request,"User Deleted Successfully")
+        return render(request,"accounts/deleteProfile")
     else:
         return redirect('/')
