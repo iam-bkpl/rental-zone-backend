@@ -12,5 +12,7 @@ urlpatterns = [
     path('updateRoom/<int:pk>',views.updateRoom, name="updateRoom"),
     path('bookRoom/<int:pk>/',views.bookRoom, name="bookRoom"),
     path('editBookStatus/<int:pk>/',views.editBookStatus,name="editBookStatus"),
-    path('updateBookStatus/<int:pk>/',views.updateBookStatus,name="updateBookStatus")
+    path('updateBookStatus/<int:pk>/',views.updateBookStatus,name="updateBookStatus"),
+    path('rateRoomView/<int:pk>/',views.rateRoomView,name="rateRoomView" ),
+    # path('rateRoom/<int:pk>/',views.rateRoom,name="rateRoom"),
 ]

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # 'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'django_extensions',
-    
     
     'accounts',
     'rooms'
@@ -132,3 +132,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # APPEND_SLASH=False
 ROOT_URLCONF = 'rentalZone.urls'
 # AUTH_USER_MODEL = 'accounts.CustomUser'
+
+
+# Admin site 
+# JAZZMIN_SETTINGS = {
+#     # For more config => https://django-jazzmin.readthedocs.io/configuration/ 
+#    # title of the window (Will default to current_admin_site.site_title if absent or None)
+#     "site_title": "NSD",
+#     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+#     "site_header": "NSD",
+#      # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+#     "site_brand": "NSD Admin",
+#     # Welcome text on the login screen
+#     "welcome_sign": "Welcome to the NSD Admin Site",
+#     # Copyright on the footer
+#     "copyright": "NSD",
+# }

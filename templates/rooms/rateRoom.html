@@ -27,9 +27,6 @@
               <div class="d-flex justify-content-between">
                 <span>City</span><span>{{room.city}} </span>
               </div>
-              <div class="d-flex justify-content-between">
-                <span>Rating</span><span>{{reviews_avg.rate__avg}} </span>
-              </div>
             </div>
             <div
               class="d-flex justify-content-between total font-weight-bold mt-4"
@@ -50,13 +47,13 @@
             </a>
             </div>
             {% endif %}
-
+This is the form
             {% if user.user_type == "customer" %}
             <a href="/bookRoom/{{room.id}}">
               <button class="Danger">Book</button>
             </a>
-            {% comment %} {% if user.user_type == "customer" %}
-            <form method="POST" action="/rateRoom/{{room.id}} " >
+            {% if user.user_type == "customer" %}
+            <form method="POST" action="" >
               {% csrf_token %}
               <div class="form-group">
                 <input type="text" name="text" class="form-control" id="" aria-describedby="emailHelp" placeholder="Enter Text">
@@ -76,10 +73,10 @@
               </select>
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-            {% endif %} {% endcomment %}
-            <a href="/rateRoomView/{{room.id}}">
+            {% endif %}
+            {% comment %} <a href="/bookRoom/{{room.id}}">
               <button class="Danger">Rate</button>
-            </a>
+            </a> {% endcomment %}
             {% endif %}
 
           </div>
@@ -87,38 +84,6 @@
       </div>
     </div>
   </div>
-  
-  {% for review in reviews  %}
-  <div class="row d-flex justify-content-center">
-    <div class="col-md-8 col-lg-6">
-      <div class="card shadow-0 border" style="background-color: #f0f2f5;">
-        <div class="card-body p-4">
- 
-          <div class="card mb-4">
-            <div class="card-body">
-              <div class="d-flex justify-content-between">
-                <div class="d-flex flex-row align-items-center">
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp" alt="avatar" width="25"
-                    height="25" />
-                  <p class="small mb-0 ms-2">Username : {{review.user}} </p>
-                </div>
-                <div class="d-flex flex-row align-items-center">
-                  <p class="small text-muted mb-0">{{review.rate}}/10</p>
-                </div>
-                <p class="small text-muted mb-0">{{review.date}} </p>
-               
-              </div>
-            </div>
-            <p>{{review.text}}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  {% endfor %}
-
-
 
 </section>
 <h3 class="text-success px-3"> Resently Viewed Products </h3>

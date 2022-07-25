@@ -50,7 +50,7 @@ class Booking(models.Model):
    number_of_rooms = models.PositiveIntegerField(default=0)
    book_date =  models.DateTimeField(auto_now_add = True)
    checkin_date = models.DateTimeField(blank=True, null=True)
-   checkout_date = models.DateTimeField(blank=True, null=True)
+#    checkout_date = models.DateTimeField(blank=True, null=True)
    payment_method = models.CharField(max_length=15, choices=PAYMENT_METHOD, default='offline', null=True,blank=True)
    amount = models.PositiveIntegerField(default=0)
    paid = models.BooleanField(default=False)
@@ -60,23 +60,26 @@ class Booking(models.Model):
        return self.book_status
    
    
-# RATE_CHOICES = [
-#     (1,'1'),
-#     (2,'2'),
-#     (3,'3'),
-#     (4,'4'),
-#     (5,'5'),
-#     (6,'6'),
-#     (7,'7'),
-#     (8,'8'),
-#     (9,'9'),
-#     (10,'10'),
-# ]
-  
+RATE_CHOICES = [
+    (1,'1'),
+    (2,'2'),
+    (3,'3'),
+    (4,'4'),
+    (5,'5'),
+    (6,'6'),
+    (7,'7'),
+    (8,'8'),
+    (9,'9'),
+    (10,'10'),
+]
 
-# class Review(models.Model):
-#     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-#     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-#     date = models.DateTimeField(auto_now=True)
-#     text = models.TextField(max_length=3000,blank=True)
-#     rate = models.PositiveSmallIntegerField(choices=RATE_CHOICES)
+class Review(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now=True,null=True,blank=True)
+    text = models.TextField(max_length=3000,blank=True,null=True)
+    rate = models.PositiveSmallIntegerField(choices=RATE_CHOICES,null=True,blank=True)
+    
+    
+    def __str__(self):
+        return self.user.address
