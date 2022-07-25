@@ -1,3 +1,4 @@
+from email import message
 from urllib.parse import urldefrag
 from django.conf import UserSettingsHolder
 from django.http import HttpResponse
@@ -5,7 +6,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib import messages
 from accounts.models import CustomUser
-from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout 
 from django.contrib.auth.models import User
 
 from rooms.models import Booking, Room
@@ -57,14 +58,14 @@ def registerUser(request):
     return render(request,'accounts/register.html')
 
 def login(request):
-    if(request.user.is_authenticated and not request.user.is_authenticated):
+    if(request.user.is_authenticated and not request.user.is_superuser):
         return redirect('/')
-   
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        print(user)
+
+        
         if user is not None:
              auth_login(request, user)
              userInfo = CustomUser.objects.filter(user_id=user.id).get()
@@ -162,7 +163,7 @@ def updateProfile(request,pk):
         # user = User.objects.create_user(
         #     username = username,password=password,email=email,first_name=first_name,last_name=last_name)
         # customUser = CustomUser(user=user,phone=phone,user_type=user_type,address=address,certificate=certificate)
-        userObj.username = username
+        # userObj.username = username
         # userObj.password = password
         userObj.email = email
         userObj.first_name = first_name

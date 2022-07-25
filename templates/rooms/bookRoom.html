@@ -12,17 +12,17 @@
               <h2 class="text-uppercase text-center mb-5">Book Room</h2>
 
               <form method="POST" action="" >
-{% csrf_token %}
+                {% csrf_token %}
                 <div class="form-outline mb-4">
                   <input type="number" name="number_of_rooms" placeholder="number_of_rooms" id="form3Example1cg" class="form-control nameform-control-lg" />
                 </div>
 
-                <div class="form-outline mb-4">
+                {% comment %} <div class="form-outline mb-4">
                   <label class="form-check-label" for="form2Example3g">
                     Book Date</u></a>
                   </label>
                   <input type="date" name="book_date" placeholder="book_date" id="form3Example3cg" class="form-control form-control-lg" />
-                </div>
+                </div> {% endcomment %}
 
                 <div class="form-outline mb-4">
                   <label class="form-check-label" for="form2Example3g">
@@ -31,12 +31,7 @@
                   <input type="date" name="checkin_date" placeholder="checkin_date" id="form3Example4cg" class="form-control form-control-lg" />
                 </div>
 
-                <div class="form-outline mb-4">
-                  <label class="form-check-label" for="form2Example3g">
-                    Checkout Date</u></a>
-                  </label>
-                  <input type="date" name="checkout_date" placeholder="checkout_date" id="form3Example4cdg" class="form-control form-control-lg" />
-                </div>
+                
                 <div class="form-outline flex-fill mb-0">
                   <select class="form-select" aria-label="Default select example" name="user_type" >
                     <option selected default  value="null" name="payment_)_method">--Select Payment Method--</option>
