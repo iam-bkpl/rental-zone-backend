@@ -14,5 +14,6 @@ urlpatterns = [
     path('editBookStatus/<int:pk>/',views.editBookStatus,name="editBookStatus"),
     path('updateBookStatus/<int:pk>/',views.updateBookStatus,name="updateBookStatus"),
     path('rateRoomView/<int:pk>/',views.rateRoomView,name="rateRoomView" ),
+    path('deleteReview/<int:pk>/',views.deleteReview,name="deleteReview"),
     # path('rateRoom/<int:pk>/',views.rateRoom,name="rateRoom"),
 ]

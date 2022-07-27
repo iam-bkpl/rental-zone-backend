@@ -48,7 +48,7 @@ def roomView(request,pk):
     reviews = Review.objects.filter(room=room)
     reviews_avg = reviews.aggregate(Avg('rate'))
     reviews_count = reviews.count()
-    
+    context =  {'room':room}
     
     recently_viewed_rooms = None
     session = request.session
@@ -82,7 +82,10 @@ def roomView(request,pk):
         return render(request,'rooms/roomView.html',context)
     else:
         # return HttpResponse("You are super admin")
-        return render(request,'accounts/login.html')
+        # return render(request,'accounts/login.html')
+        room = Room.objects.get(id=pk)
+        context =  {'room':room}
+        return render(request,'rooms/roomView.html',context)
 
 
 
@@ -113,7 +116,7 @@ def addRoom(request):
         if(request.user.is_authenticated and userType == owner):
             # userInfo = CustomUser.objects.get(user_id = user.id)
                 number_of_room = request.POST.get('number_of_room')
-                # available_rooms = request.POST.get('available_rooms')
+                available_rooms = number_of_room
                 room_price = request.POST.get('room_price')
                 area_of_room = request.POST.get('area_of_room')
                 floor = request.POST.get('floor')
@@ -132,7 +135,7 @@ def addRoom(request):
                 description = request.POST.get('description')
                 map_link = request.POST.get('map_link')
                 
-                newRoomObj = Room(owner=user,number_of_room=number_of_room,room_price=room_price,area_of_room=area_of_room,floor=floor,parking=parking,address=address,city=city,state=state,country=country,image1=image1,image2=image2,image3=image3,image4=image4,description=description,map_link=map_link)
+                newRoomObj = Room(owner=user,available_rooms= available_rooms , number_of_room=number_of_room,room_price=room_price,area_of_room=area_of_room,floor=floor,parking=parking,address=address,city=city,state=state,country=country,image1=image1,image2=image2,image3=image3,image4=image4,description=description,map_link=map_link)
 
                 newRoomObj.save()
                 messages.success(request,"Home Saved Successfully")
@@ -151,6 +154,10 @@ def deleteRoom(request,pk):
         roomList = Room.objects.all()
         context = {'roomList':roomList}
         messages.success(request,"Room Deleted Successfully")
+        
+        if request.user.is_staff:
+            return redirect('/accounts/dashRoom')
+        
         return render(request, 'rooms/roomList.html',context)
     else:
         return redirect('/')
@@ -173,11 +180,10 @@ def updateRoom(request,pk):
         roomObj = Room.objects.get(id=pk)
         
         if request.method == "POST":
-            
-            if(userType == "room_owner"):
+            if(userType == "room_owner" or request.user.is_staff):
             # userInfo = CustomUser.objects.get(user_id = user.id)
                 number_of_room = request.POST.get('number_of_room') 
-                # available_rooms = request.POST.get('available_rooms')
+                available_rooms = request.POST.get('available_rooms')
                 room_price = request.POST.get('room_price')
                 area_of_room = request.POST.get('area_of_room')
                 floor = request.POST.get('floor')
@@ -195,8 +201,14 @@ def updateRoom(request,pk):
                 image4 = request.FILES.get('image4')
                 description = request.POST.get('description')
                 map_link = request.POST.get('map_link')
+                
+                if int(number_of_room) > int(room.available_rooms):
+                    messages.success(request,"Please Select less than"+str(room.available_rooms))
+                    context= {'room':room}
+                    return render(request,'rooms/roomView.html',context)
         
                 roomObj.number_of_room = number_of_room
+                roomObj.available_rooms = available_rooms
                 roomObj.room_price = room_price
                 roomObj.area_of_room = area_of_room
                 roomObj.floor = floor
@@ -216,6 +228,12 @@ def updateRoom(request,pk):
                 # newRoomObj = Room(id=pk, owner=user,number_of_room=number_of_room,room_price=room_price,area_of_room=area_of_room,floor=floor,parking=parking,address=address,city=city,state=state,country=country,image1=image1,image2=image2,image3=image3,image4=image4,description=description,map_link=map_link)
 
                 # newRoomObj.save()
+                # import pdb
+                # pdb.set_trace()
+                checkUser = request.user
+                if request.user.is_staff:
+                    return redirect('/accounts/dashRoom')
+                
                 context = {'room':roomObj}
                 messages.success(request,"Room Updated")
                 return render(request,'rooms/roomView.html',context)
@@ -247,8 +265,8 @@ def bookRoom(request,pk):
         if paid == 'paid':
             paid = True
 
-        if int(number_of_rooms) > room.number_of_room:
-            messages.success(request,"Please Select less than"+str(room.number_of_room))
+        if int(number_of_rooms) > room.available_rooms:
+            messages.success(request,"Please Select less than"+str(room.available_rooms))
             context= {'room':room}
             return render(request,'rooms/bookRoom.html',context)
         
@@ -327,14 +345,20 @@ def rateRoomView(request,pk):
     context=({'room':room,'user':customUser})
     return render(request,'rooms/rateRoom.html',context)
     
-    
+
+def deleteReview(request,pk):
+    rate = Review.objects.get(id=pk)
+    rate.delete()
+    messages.success(request,"Review Deleted successfully")
+    return redirect('/accounts/dashReview')
+
 # def rateRoom(request,pk):
 #     # import pdb
 #     # pdb.set_trace()
 #     room = Room.objects.get(id=pk)
 #     user = request.user
 #     template = "/roomView/"+str(room.id)
-#     if(user.is_authenticated) and user.customuser =="customer":
+#     if(user.is_authentica{% static 'rooms/image1' %} ted) and user.customuser =="customer":
 #         messages.success(request,"Entered")
 #         if request.method == "POST":
 #             text = request.POST.get("text")
@@ -366,3 +390,10 @@ def rateRoomView(request,pk):
         # }
         # return HttpResponse(template.render(context,request))
         
+        
+    
+EMAIL_USE_TLS = True  
+EMAIL_HOST = 'smtp.gmail.com'  
+EMAIL_HOST_USER = 'iam.bkpl03@gmail.com'
+EMAIL_HOST_PASSWORD = 'dufyahaiaxyodxsw'
+EMAIL_PORT = 587

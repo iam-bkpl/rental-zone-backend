@@ -10,6 +10,8 @@
 
     <input type="number" name="number_of_room" id="form6Example3" class="form-control" placeholder="number_of_room" value={{room.number_of_room}} />
   </div>
+  <input type="number" name="available_rooms" id="form6Example3" class="form-control" placeholder="available rooms" value={{room.available_rooms}} />
+</div>
 
   <!-- Text input -->
   <div class="form-outline mb-4">
@@ -45,7 +47,7 @@
     <input type="text" name="country" value={{room.country}} id="form6Example5" class="form-control" placeholder="country" />
   </div>
   <div class="form-outline mb-4">
-    <input type="file" name="image1" id="form6Example5" value="{{room.image1}} " class="form-control" placeholder="image" />
+    <input type="file" name="image1" id="form6Example5" value="{{room.image1.url}} " class="form-control" placeholder="image" />
   </div>
   <div class="form-outline mb-4">
     <input type="file" name="image2" id="form6Example5" class="form-control" placeholder="image2" />

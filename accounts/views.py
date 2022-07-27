@@ -1,4 +1,5 @@
 from email import message
+from urllib import request
 from urllib.parse import urldefrag
 from django.conf import UserSettingsHolder
 from django.http import HttpResponse
@@ -8,12 +9,30 @@ from django.contrib import messages
 from accounts.models import CustomUser
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout 
 from django.contrib.auth.models import User
-
-from rooms.models import Booking, Room
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes  
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
+from rooms.models import Booking, Review, Room
 # Create your views here.
 
+# def send_register_email(user,request):
+#     current_site = get_current_site(request)
+#     email_subject = 'Rental Zone Email Activation'
+#     email_body = render_to_string('accounts/activateMail.html',{
+#         'user':user,
+#         'domain':current_site,
+#         'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+        
+#     })
+
+
+
+
+
 def registerUser(request):
-    if(request.user.is_authenticated):
+    if(request.user.is_authenticated and not request.user.is_staff):
         return redirect('/')
         
     # import pdb;
@@ -47,19 +66,32 @@ def registerUser(request):
         
         user = User.objects.create_user(
             username = username,password=password,email=email,first_name=first_name,last_name=last_name)
+        user.is_active = False
         user.save()
+        
+        
+        
+        
+        
+        
         customUser = CustomUser(user=user,phone=phone,user_type=user_type,address=address,certificate=certificate)
         customUser.save()
-        auth_login(request, user)
+        # auth_login(request, user)
+        
         messages.success(request,"User successfully Created")
+        
+        if request.user.is_staff:
+            return redirect('/accounts/dashUser')
+        
         # return redirect('accounts/login.html')
         return render(request, 'accounts/login.html')
     
     return render(request,'accounts/register.html')
 
 def login(request):
-    if(request.user.is_authenticated and not request.user.is_superuser):
+    if(request.user.is_authenticated):
         return redirect('/')
+    
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -117,18 +149,26 @@ def userProfile(request):
                        'bookedRoom':bookedRoom
                        }
             return render(request,'accounts/userProfile.html',context)
-        else:
-            return HttpResponse("Login to View your Profile")
+        
+        elif(customuser.user_type =="rentalAdmin"):    
+            # userInfo = request.user
+            userRole = request.user.customuser.user_type
+            context = {'userInfo':customuser, 'role':userRole}
+            return render(request,'accounts/userProfile.html',context)
+        else:    
+            return HttpResponse("Not a Valid User")
     else:
         return redirect('/')
 
 def editProfile(request,pk):
-    if(request.user.is_authenticated and not request.user.is_superuser):
+    if(request.user.is_authenticated):
         user = User.objects.get(id=pk)
         customuser = user.customuser
         
         context = {'userInfo':user,'customuser':customuser}
         return render(request,"accounts/editProfile.html",context)
+
+    return redirect('/')
 
 def updateProfile(request,pk):
     if(not request.user.is_authenticated):
@@ -178,9 +218,16 @@ def updateProfile(request,pk):
         # customUserObj.certificate = certificate
         
         customUserObj.save()
-        auth_login(request, userObj)
+        # auth_login(request, userObj)
         messages.success(request,"User detail Updated")
         # return redirect('accounts/login.html')
+        
+        # import pdb
+        # pdb.set_trace()
+        
+        if request.user.is_staff:
+            return redirect('/accounts/dashUser')
+        
         return render(request, 'accounts/userProfile.html')
     
     return render(request,'accounts/userProfile.html')
@@ -201,3 +248,42 @@ def deleteProfile(request,pk):
     return render(request,'index.html')
     # return HttpResponse("Delete Page")
     
+    
+    
+def dashUser(request):
+    # customuser = CustomUser.objects.all()
+    user = User.objects.all()
+    
+    context = {'users':user,}
+    return render(request,'dashboard/dashUser.html',context)
+
+def dashboard(request):
+    user = User.objects.all()
+    rooms = Room.objects.all()
+    bookings = Booking.objects.all()
+    reivews = Review.objects.all()
+    
+    context = {'users':user,'rooms':rooms,'bookings':bookings,'reviews':reivews}
+    return render(request,'dashboard/dashboard.html',context)
+
+
+
+def dashRoom(request):
+    rooms = Room.objects.all()
+    
+    context = {'rooms':rooms}
+    return render(request,'dashboard/dashRoom.html',context)
+
+def dashBooking(request):
+    bookings = Booking.objects.all()
+    
+    context = {'bookings':bookings}
+    return render(request,'dashboard/dashBooking.html',context)
+
+
+def dashReview(request):
+    rooms = Room.objects.all()
+    reviews = Review.objects.all()
+    context = {'rooms':rooms,'reviews':reviews}
+    return render(request,'dashboard/dashReview.html',context)
+

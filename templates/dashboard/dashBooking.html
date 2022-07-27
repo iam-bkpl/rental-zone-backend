@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+
+<div class="container-fluid">
+
+{% include './sidebar.html' %}
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" id="dashboardDataId">
+
+      <h2>Bookings</h2>
+      {% comment %} <a> <button>Create</button></a> {% endcomment %}
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Booking Id</th>
+              <th scope="col">Customer</th>
+              <th scope="col">Owner</th>
+              <th scope="col">No of rooms</th>
+              <th scope="col">Date</th>
+              <th scope="col">Book Status</th>
+              <th scope="col">Room Price</th>
+              {% comment %} 
+              <th scope="col">Header</th>
+              <th scope="col">Header</th>
+              <th scope="col">Header</th> {% endcomment %}
+
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for book in bookings %}
+
+            <tr>
+              <td>{{book.id}} </td>
+              <td>{{book.customer}}</td>
+              <td>{{book.room.owner}}</td>
+              <td>{{book.number_of_rooms}} / {{book.room.number_of_room}} </td>
+              <td>{{book.book_date}} </td>
+              <td>{{book.book_status}} </td>
+              <td>{{book.room.room_price}} </td>
+            </tr>
+           {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      
+
+
+    </main>
+
+
+  </div>
+</div>
+
+
+
+{% endblock %}
