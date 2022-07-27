@@ -9,8 +9,12 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+# import django
+# django.setup()
 import os
 from pathlib import Path
+
+# from rooms.views import EMAIL_HOST, EMAIL_HOST_PASSWORD, EMAIL_HOST_USER, EMAIL_PORT, EMAIL_USE_TLS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,9 +44,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # 'django_extensions',
-    
-    'accounts',
-    'rooms'
+
+    'accounts.apps.AccountsConfig',
+    'rooms.apps.RoomsConfig',
+    # 'accounts',
+    # 'rooms',
+    # 'accounts',
+    # 'rooms'
 ]
 
 MIDDLEWARE = [
@@ -142,6 +150,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # APPEND_SLASH=False
 ROOT_URLCONF = 'rentalZone.urls'
 # AUTH_USER_MODEL = 'accounts.CustomUser'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'iam.bkpl03@gmail.com'
+SERVER_EMAIL = 'iam.bkpl03@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'iam.bkpl03@gmail.com'
+EMAIL_HOST_PASSWORD = 'ikpoyldyxovqffpq'
+EMAIL_USE_TLS= True
+EMAIL_USE_SSL = False
+
+
 
 
 # Admin site 

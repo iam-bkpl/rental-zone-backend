@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings  
 from django.conf.urls.static import static
-from rooms.admin import room_site
+# from rooms.admin import room_site
 
 
 admin.site.site_header = "Rental Zone"
@@ -28,7 +28,7 @@ admin.site.index_title = "Welcome to Rental Portal"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('rentalAdmin/',room_site.urls),
+    # path('rentalAdmin/',room_site.urls),
     path('',include('rooms.urls')),
     path('accounts/',include('accounts.urls'))
     
