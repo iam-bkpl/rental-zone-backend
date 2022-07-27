@@ -1,4 +1,6 @@
 from email import message
+import pdb
+# from os import uname
 from urllib import request
 from urllib.parse import urldefrag
 from django.conf import UserSettingsHolder
@@ -15,6 +17,10 @@ from django.utils.encoding import force_bytes
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from rooms.models import Booking, Review, Room
+from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+# from django.conf import settings
+import random
 # Create your views here.
 
 # def send_register_email(user,request):
@@ -26,8 +32,20 @@ from rooms.models import Booking, Review, Room
 #         'uid':urlsafe_base64_encode(force_bytes(user.pk)),
         
 #     })
+# import pdb
+# pdb.set_trace()
+global otpNo
+otpNo = 0
 
-
+        
+# send_mail(
+#     'Subject here',
+#     'Here is the message.',
+#     'from@example.com',
+#     ['to@example.com'],
+#     fail_silently=False,
+# )
+        
 
 
 
@@ -52,7 +70,6 @@ def registerUser(request):
         certificate =  request.FILES.get('certificate')
         
         
-        
         # Check if user already exists
         if(User.objects.filter(username=username).exists()):
             messages.warning(request, "Username Taken")
@@ -64,9 +81,15 @@ def registerUser(request):
             messages.warning(request,"Password Doesn't match")
             return render(request,'/accounts/register.html')
         
+        
+        global userEmail
+        userEmail = email
+        global uname
+        uname  = username
+        
         user = User.objects.create_user(
             username = username,password=password,email=email,first_name=first_name,last_name=last_name)
-        user.is_active = False
+        # user.is_active = False
         user.save()
         
         
@@ -83,10 +106,38 @@ def registerUser(request):
         if request.user.is_staff:
             return redirect('/accounts/dashUser')
         
-        # return redirect('accounts/login.html')
-        return render(request, 'accounts/login.html')
+        return redirect('/accounts/login.html')
+        # return render(request, 'accounts/otp.html')
     
     return render(request,'accounts/register.html')
+
+
+# def otp(request):
+#     import pdb
+#     pdb.set_trace()
+#     global otpNo
+#     if request.method == "POST":
+#         otp = request.POST.get('otp')
+#         if (int(otp)==int(otpNo)):
+#             return redirect('/accounts/otp')
+#         else:
+#             us = User.objects.get(username = uname)
+#             us.delete()
+#             # us = User.objects.get(email= userEmail)
+#             # us.delete()
+#             return HttpResponse("Invalid OTP")
+#     else:
+#         no = random.randrange(1000,9999)
+#         send_mail('Your Rental Zone OTP Verification','Your otp is { }'.format(no),
+#                   'iam.bkpl03@gmail.com',
+#                   [userEmail],
+#                   fail_silently=False,
+#                   )
+#         msg = EmailMessage('Request Callback',
+#                       'Your Rental Zone OTP Verification','Your otp is { }'.format(no), to=[userEmail])
+#         msg.send()
+#         return render(request,'accounts/otp.html',{})
+        
 
 def login(request):
     if(request.user.is_authenticated):

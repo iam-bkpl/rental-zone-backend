@@ -124,6 +124,8 @@ def addRoom(request):
                 parking = request.POST.get('parking')
                 if parking == 'yes':
                     parking = True
+                else:
+                    parking = False
                 address = request.POST.get('address')
                 city = request.POST.get('city')
                 state = request.POST.get('state')
