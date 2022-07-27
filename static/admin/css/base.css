@@ -848,6 +848,10 @@ table#change-history tbody th {
 
 .dashboard #content {
     width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 #content-main {
@@ -895,7 +899,9 @@ table#change-history tbody th {
 
 #header {
     width: auto;
-    height: auto;
+    /* height: auto; */
+    height: 15vh;
+
     display: flex;
     justify-content: space-between;
     align-items: center;

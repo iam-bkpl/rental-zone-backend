@@ -6,6 +6,13 @@
   <!-- 2 column grid layout with text inputs for the first and last names -->
 {% csrf_token %}
   <!-- Text input -->
+
+{% comment %} {% if request.user.is_staff %}
+  <div class="form-outline mb-4">
+    <input type="number" name="owner" id="form6Example3" class="form-control" placeholder="Owner" />
+  </div>
+{% endif %} {% endcomment %}
+
   <div class="form-outline mb-4">
     <input type="number" name="number_of_room" id="form6Example3" class="form-control" placeholder="number_of_room" />
   </div>

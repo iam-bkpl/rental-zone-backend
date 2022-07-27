@@ -1,0 +1,43 @@
+{% block sidebar %}
+
+
+<div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3 sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href=" {% url 'dashboard' %} " id="users">
+              <span data-feather="file" class="align-text-bottom"></span>
+              Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href=" {% url 'dashUser' %} " id="users">
+              <span data-feather="file" class="align-text-bottom"></span>
+              Users
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href=" {% url 'dashRoom' %} " id="rooms">
+              <span data-feather="shopping-cart" class="align-text-bottom"></span>
+              Rooms
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href=" {% url 'dashBooking' %} " id="bookings">
+              <span data-feather="users" class="align-text-bottom"></span>
+              Bookings
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashReview' %} " id = "reviews">
+              <span data-feather="users" class="align-text-bottom"></span>
+              Review
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </nav>
+
+    {% endblock %}

@@ -9,9 +9,17 @@ urlpatterns = [
     path('login/',views.login, name='login'),
     path('logout/',views.logout,name="logout"),
     
+    
     # user profile
     path('userProfile/',views.userProfile, name="userProfile"),
     path('deleteProfile/<int:pk>',views.deleteProfile, name="deleteProfile"),
     path('editProfile/<int:pk>',views.editProfile, name="editProfile"),
     path('updateProfile/<int:pk>',views.updateProfile, name="updateProfile"),
+    path('dashboard/',views.dashboard,name="dashboard"),
+    path('dashRoom/',views.dashRoom,name="dashRoom"),
+    path('dashUser/',views.dashUser,name="dashUser"),
+    path('dashBooking/',views.dashBooking,name="dashBooking"),
+    path('dashReview/',views.dashReview,name="dashReview"),
+    
+    
 ]

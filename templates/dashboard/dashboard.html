@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+
+<div class="container-fluid">
+  <div class="row">
+    {% include './sidebar.html' %}
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" id="dashboardDataId">
+
+        <div class="row">
+            
+            <div class="col-sm-3 mt-3 mb-2"  >
+              <div class="card card-hover" id="card1" style="text-align: center; border-radius: 12px;" >
+                   <p style="font-family: 'Brush Script MT', cursive; font-size:28px; display: inline;" class="text-primary">Total Users</p>
+                  <div class="card-body"> 
+                    <p style="font-family: 'Brush Script MT', cursive; font-size:24px; display: inline;" >{{users.count}}</p>
+                  </div>
+              </div>
+            </div> 
+  
+            <div class="col-sm-3 mt-3 mb-2"  >
+              <div class="card card-hover" id="card1" style="text-align: center; border-radius: 12px;" >
+                   <p style="font-family: 'Brush Script MT', cursive; font-size:28px; display: inline;" >Total Rooms</p>
+                  <div class="card-body"> 
+                    <p style="font-family: 'Brush Script MT', cursive; font-size:24px; display: inline;" >{{rooms.count}} </p>
+                  </div>
+              </div>
+            </div> 
+  
+            <div class="col-sm-3 mt-3 mb-2"  >
+              <div class="card card-hover" id="card1" style="text-align: center; border-radius: 12px;" >
+                   <p style="font-family: 'Brush Script MT', cursive; font-size:28px; display: inline;" >Total Bookings</p>
+                  <div class="card-body"> 
+                   <p style="font-family: 'Brush Script MT', cursive; font-size:24px; display: inline;" >{{bookings.count}}</p>
+                  </div>
+              </div>
+            </div> 
+  
+            <div class="col-sm-3 mt-3 mb-2"  >
+              <div class="card card-hover" id="card1" style="text-align: center; border-radius: 12px;" >
+                   <p style="font-family: 'Brush Script MT', cursive; font-size:28px; display: inline;" >Total Reviews</p>
+                  <div class="card-body"> 
+                    <p style="font-family: 'Brush Script MT', cursive; font-size:24px; display: inline;" >{{reviews.count}}</p>
+                  </div>
+              </div>
+            </div> 
+  
+          </div>
+  
+
+
+
+
+    </main>
+
+
+    
+
+  </div>
+</div>
+
+
+
+{% endblock %}
