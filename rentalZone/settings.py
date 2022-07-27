@@ -44,10 +44,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # 'django_extensions',
+
     'accounts.apps.AccountsConfig',
     'rooms.apps.RoomsConfig',
     # 'accounts',
     # 'rooms',
+    # 'accounts',
+    # 'rooms'
 ]
 
 MIDDLEWARE = [
