@@ -1,52 +1,81 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
-<section style="background-color: #eee">
-  <div class="text-center container py-5">
-    <h4 class="mt-4 mb-5"><strong>Rooms</strong></h4>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Zone</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" /> 
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    
+  <link rel="stylesheet" href=" {% static 'css/style.css' %} ">
+  <link rel="stylesheet" href="{% static 'css/rooms.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <script src="js/script.js"></script>
+</head>
+<body>
+    
+<!-- header  -->
 
-    <div class="row">
-      {% for room in roomList %}
+<div class="wrapper">
+  <nav>
+    <input type="checkbox" id="show-menu">
+    <label for="show-menu" class="menu-icon"><i class="fas fa-bars"></i></label>
+    <div class="content">
+      <div class="logo"><a href="#">Rental&nbsp;Zone</a></div>
+      <ul class="links">
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        <li><a href="/">Home</a></li>
+        <li><a href="#aboutUs">About</a></li>
+        <li><a href="{% url 'roomList' %}">Rooms</a></li>
+        <li><a href="#contactUs">Contact</a></li>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        
+        {% if request.user.is_staff %}
+        <li><a href="/accounts/dashboard" class="navButton" >Dashboard</a></li>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <li><a href="/accounts/logout" class="navButton" >Logout</a></li>
+        <li><a href="/accounts/userProfile" class="navButton" >Profile</a></li>
+        {% else %}  
+        <li><a href="{% url 'login' %}" class="navButton" >Login</a></li>
+        <li><a href="/accounts/register" class="navButton" >Register</a></li>
+        {% endif%}
+    </div>
+  </nav>
 
-      <div class="col-lg-4 col-md-6 mb-4">
-        <div class="card">
-          <div
-            class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
-            data-mdb-ripple-color="light"
-          >
-            <img
-              src=""
-              class="w-100"
-              alert="Image "
-            />
-            <a href="#!">
-              <div class="mask">
-                <div class="d-flex justify-content-start align-items-end h-100">
-                  <h5>
-                    <span class="badge bg-success ms-2">{{room.owner}}</span>
-                  </h5>
-                </div>
-              </div>
-              <div class="hover-overlay">
-                <div
-                  class="mask"
-                  style="background-color: rgba(251, 251, 251, 0.15)"
-                ></div>
-              </div>
-            </a>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Address {{room.address}}</h5>
-            <h6 class="">Total Rooms =  {{room.available_rooms}} / {{room.number_of_room}} </h6>
-            <h6 class="">Price {{room.room_price}}</h6>
-            <h6 class="">State: {{room.state}}</h6>
-            <a href="/roomView/{{room.id}} " >
-              <button class="btn btn-primary">View</button>
-            </a>
-          </div>
-        </div>
+</div>
+
+<!-- header ends -->
+
+
+<!-- **************Latest Rooom************** -->
+<section class="categories" id="rooms">
+<br><br><br><br><br><br><br>
+  <h1 class="heading"> Available Rooms</h1>
+
+  <div class="box-container">
+    {% for room in roomList %}
+      <div class="box">
+          <img src="{{room.image1.url}} " alt="Room photo">
+          <h3>{{room.address}}</h3>
+          <p>Price: &nbsp;<b>Rs. 5000</b> </p>
+          {% comment %} <p>Location: &nbsp;<b> {{room.address}}</b> </p> {% endcomment %}
+          <p>Rooms: &nbsp;<b>  {{room.available_rooms}} / {{room.number_of_room}}</b> </p>
+          <a href="/roomView/{{room.id}} " class="viewDetainbtn">View details</a>
       </div>
       {% endfor %}
-    </div>
+
   </div>
 </section>
+<!-- footer section starts  -->
+{% include 'footer.html' %}
 
-{% endblock %}
+<!-- footer section ends -->
+
+</body>
+</html>
