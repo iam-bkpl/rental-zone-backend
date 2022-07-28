@@ -64,7 +64,8 @@
     <h1>Registration Form</h1>
     <span id="result"></span>
     <br>
-    <form action="#" name="form" onsubmit="return validateForm()">
+    <form action="{% url 'registerUser' %}" method="post" onsubmit="return validateForm()">
+      {% csrf_token %}
       <div class="form first">
         <div class="details personal">
           <span class="title"></span>
@@ -73,17 +74,17 @@
           <div class="fields">
             <div class="input-field">
               <label>First Name</label>
-              <input type="text" name="firstname" id="firstname" placeholder="Enter first name">
+              <input type="text" name="first_name" id="firstname" placeholder="Enter first name">
             </div>
 
             <div class="input-field">
               <label>Last Name</label>
-              <input type="text" name="lastname" id="lastname" placeholder="Enter last name">
+              <input type="text" name="last_name" id="lastname" placeholder="Enter last name">
             </div>
 
             <div class="input-field">
               <label>Username</label>
-              <input type="text" name="uname" id="username" placeholder="Enter username">
+              <input type="text" name="username" id="username" placeholder="Enter username">
             </div>
 
             <div class="input-field">
@@ -98,7 +99,7 @@
 
             <div class="input-field">
               <label>Confirm Password</label>
-              <input type="password" name="cpassword" id="confirm-password" placeholder="Confirm Password">
+              <input type="password" name="confirmPassword"  id="confirm-password" placeholder="Confirm Password">
             </div>
           </div>
         </div>
@@ -110,10 +111,10 @@
 
           <div class="input-field">
             <label>Select User Type</label>
-            <select required>
+            <select  name="user_type" required>
               <option disabled selected>Select User Type</option>
-              <option>Room Owner</option>
-              <option>Customer</option>
+              <option value="customer">Room Owner</option>
+              <option  value="room_owner">Customer</option>
             </select>
           </div>
 
@@ -124,7 +125,7 @@
 
           <div class="input-field">
             <label>Upload ID image</label>
-            <input type="file" id="file" name="file" multiple>
+            <input  type="file" id="file"  name="certificate" >
           </div>
         </div>
 

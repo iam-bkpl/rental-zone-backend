@@ -59,7 +59,8 @@ import random
 # print(request.session.get('no'))
 
 global userEmail
-userEmail = ''
+global no
+no = random.randrange(1111,9999)
 def registerUser(request):
     if(request.user.is_authenticated and not request.user.is_staff):
         return redirect('/')
@@ -119,9 +120,6 @@ def registerUser(request):
         #     messages.warning(request,"Please select a photo")
         #     return render(request, 'accounts/register.html')
        
-        
-
-      
         if(User.objects.filter(username=username).exists()):
             messages.warning(request, "Username Taken")
             return render(request, 'accounts/register.html')
@@ -132,11 +130,10 @@ def registerUser(request):
             messages.warning(request,"Password Doesn't match")
             return render(request,'accounts/register.html')
         
-    
         
         user = User.objects.create_user(
             username = username,password=password,email=email,first_name=first_name,last_name=last_name)
-        # user.is_active = False
+        user.is_active = False
         user.save()
         
         customUser = CustomUser(user=user,phone=phone,user_type=user_type,address=address,certificate=certificate)
@@ -148,52 +145,57 @@ def registerUser(request):
         if request.user.is_staff:
             return redirect('/accounts/dashUser')
         
-        return render(request,'/accounts/login.html')
+        # return render(request,'/accounts/login.html')
         
       
-        # send_mail('Your Rental Zone OTP Verification','Your otp is '+str(no),
+        send_mail('Your Rental Zone OTP Verification','Your otp is '+str(no),
+                  'iam.bkpl03@gmail.com',
+                  [userEmail],
+                  fail_silently=False,
+                  )
+        
+        # msg = EmailMessage('Hello',
+        #               'Your Rental Zone OTP Verification Your otp is { }'.format(no), to=[userEmail])
+        # msg = EmailMessage('Hello',
+                    #   'Your Rental Zone OTP Verification Your otp is '+str(no), to=[userEmail])
+        
+        # msg.send()
+        
+        return render(request, 'accounts/otp.html')
+    
+    return render(request,'accounts/register.html')
+
+
+def otp(request):
+    # import pdb
+    # pdb.set_trace()
+    global no 
+    global userEmail
+    if request.method == "POST":
+        otp = request.POST.get('otp')
+        # no =  request.session.get('no')
+        un = request.session.get('username')
+        user1 = User.objects.get(username = un)
+        if (int(otp)==int(no)):
+            user1.is_active = True
+            user1.save()
+            return redirect('login')
+        else:
+            user1.delete()
+            # cu = CustomUser.objects.filter(first_name= un)
+            # cu.delete()
+            return HttpResponse("Invalid OTP")
+    else:
+
+        # send_mail('Your Rental Zone OTP Verification','Your otp is { }'+str(no),
         #           'iam.bkpl03@gmail.com',
         #           [userEmail],
         #           fail_silently=False,
         #           )
-        # msg = EmailMessage('Hello',
-        #             #   'Your Rental Zone OTP Verification Your otp is { }'.format(no), to=[userEmail])
-        # msg = EmailMessage('Hello',
-        #               'Your Rental Zone OTP Verification Your otp is '+str(no), to=[userEmail])
+        # msg = EmailMessage('Request Callback',
+        #               'Your Rental Zone OTP Verification','Your otp is { }'.format(no), to=[userEmail])
         # msg.send()
-        # return render(request, 'accounts/otp.html')
-    
-    return render(request,'accounts/register.html')
-
-global no
-no = 0
-
-# def otp(request):
-#     global no 
-#     global userEmail
-#     if request.method == "POST":
-#         otp = request.POST.get('otp','')
-#         # no =  request.session.get('no')
-#         # un = request.session.get('username')
-#         if (int(otp)==int(no)):
-#             return redirect('accounts/login')
-#         else:
-#             un = User.objects.get(username = un)
-#             un.delete()
-#             # cu = CustomUser.objects.filter(first_name= un)
-#             # cu.delete()
-#             return HttpResponse("Invalid OTP")
-#     else:
-#         no = random.randrange(1111,9999)
-#         send_mail('Your Rental Zone OTP Verification','Your otp is { }'.format(no),
-#                   'iam.bkpl03@gmail.com',
-#                   [userEmail],
-#                   fail_silently=False,
-#                   )
-#         msg = EmailMessage('Request Callback',
-#                       'Your Rental Zone OTP Verification','Your otp is { }'.format(no), to=[userEmail])
-#         msg.send()
-#         return render(request,'/accounts/otp.html',{})
+        return render(request,'/accounts/otp.html',{})
         
 
 def login(request):

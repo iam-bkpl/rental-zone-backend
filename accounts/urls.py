@@ -8,7 +8,7 @@ urlpatterns = [
     path('register/',views.registerUser, name="registerUser"),
     path('login/',views.login, name='login'),
     path('logout/',views.logout,name="logout"),
-    # path('otp/',views.otp,name="otp"),
+    path('otp/',views.otp,name="otp"),
     
     
     # user profile
