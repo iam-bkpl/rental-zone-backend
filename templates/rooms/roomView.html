@@ -1,173 +1,186 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-<section style="background-color: #eee">
-  <div class="container py-5">
-    <div class="row justify-content-center">
-      <div class="col-md-8 col-lg-6 col-xl-4">
-        <div class="card text-black">
-          <i class="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
-          <img
-            src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/3.webp"
-            class="card-img-top"
-            alt="Apple Computer"
-          />
-          <div class="card-body">
-            <div class="text-center">
-              <h5 class="card-title">{{room.address}}</h5>
-              <p class="text-muted mb-4">{{room.owner}}</p>
-            </div>
-            <div>
-              <div class="d-flex justify-content-between">
-                <span>Number of Rooms</span
-                ><span>{{room.available_rooms}}/{{room.number_of_room}}  </span>
-              </div>
-              <div class="d-flex justify-content-between">  
-                <span>Price</span><span>{{room.room_price}} </span>
-              </div>
-              <div class="d-flex justify-content-between">
-                <span>City</span><span>{{room.city}} </span>
-              </div>
-              <div class="d-flex justify-content-between">
-                <span>Rating</span><span>{{reviews_avg.rate__avg}} </span>
-              </div>
-            </div>
-            <div
-              class="d-flex justify-content-between total font-weight-bold mt-4"
-            >
-              <span>Country</span><span>{{room.country}} </span>
-            </div>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Room Profile 9</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
-            {%if user.user_type == 'room_owner' %}
+     
+  <link rel="stylesheet" href=" {% static 'css/style.css' %} ">
+  <link rel="stylesheet" href="{% static 'css/rooms.css' %}">
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+  <link rel="stylesheet" href=" {% static 'css/roomProfile.css' %} ">
+  <script src="js/script.js"></script>
+</head>
 
-            <div
-              class="d-flex justify-content-between total font-weight-bold mt-4"
-            >
-            <a href="/editRoom/{{room.id}}">  <button class="success">Update</button
-              >
-            </a>
-            <a href="/deleteRoom/{{room.id}}">
-              <button class="Danger">Delete</button>
-            </a>
-            </div>
-            {% endif %}
+<body>
 
-            {% if user.user_type == "customer" %}
-            <a href="/bookRoom/{{room.id}}">
-              <button class="Danger">Book</button>
-            </a>
-            {% comment %} {% if user.user_type == "customer" %}
-            <form method="POST" action="/rateRoom/{{room.id}} " >
-              {% csrf_token %}
-              <div class="form-group">
-                <input type="text" name="text" class="form-control" id="" aria-describedby="emailHelp" placeholder="Enter Text">
-              </div>
-              <select class="form-select" name="rate" aria-label="Default select example">
-                <option selected>Rate form 0-10</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-            {% endif %} {% endcomment %}
-            <a href="/rateRoomView/{{room.id}}">
-              <button class="Danger">Rate</button>
-            </a>
-            {% endif %}
+  <!-- header  -->
 
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="wrapper">
+   {% include 'nav.html' %}
   </div>
-  
-  {% for review in reviews  %}
-  <div class="row d-flex justify-content-center">
-    <div class="col-md-8 col-lg-6">
-      <div class="card shadow-0 border" style="background-color: #f0f2f5;">
-        <div class="card-body p-4">
- 
-          <div class="card mb-4">
-            <div class="card-body">
-              <div class="d-flex justify-content-between">
-                <div class="d-flex flex-row align-items-center">
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp" alt="avatar" width="25"
-                    height="25" />
-                  <p class="small mb-0 ms-2">Username : {{review.user}} </p>
-                </div>
-                <div class="d-flex flex-row align-items-center">
-                  <p class="small text-muted mb-0">{{review.rate}}/10</p>
-                </div>
-                <p class="small text-muted mb-0">{{review.date}} </p>
-               
-              </div>
-            </div>
-            <p>{{review.text}}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  {% endfor %}
 
+  <!-- header ends -->
 
-
-</section>
-<h3 class="text-success px-3"> Resently Viewed Products </h3>
-<section style="background-color: #eee;">
-  <div class="container py-5">
-    <div class="row">
-
-      {% for recent_room in recently_viewed_rooms %}
-
-      <div class="col-md-6 col-lg-4 mb-4 mb-md-0">
-        <div class="card">
-          <div class="d-flex justify-content-between p-3">
-            <p class="lead mb-0">Today's Combo Offer</p>
-            <div
-              class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
-              style="width: 35px; height: 35px;">
-              <p class="text-white mb-0 small">x2</p>
-            </div>
-          </div>
-          <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/7.webp"
-            class="card-img-top" alt="Laptop" />
-          <div class="card-body">
-            <div class="d-flex justify-content-between">
-              <p class="small"><a href="#!" class="text-muted">Laptops</a></p>
-              <p class="small text-danger"><s>$1199</s></p>
-            </div>
-
-            <div class="d-flex justify-content-between mb-3">
-              <h5 class="mb-0">HP Envy</h5>
-              <h5 class="text-dark mb-0">$1099</h5>
-            </div>
-
-            <div class="d-flex justify-content-between mb-2">
-              <p class="text-muted mb-0">Available: <span class="fw-bold">7</span></p>
-              <div class="ms-auto text-warning">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i>
-              </div>
+  <!-- ***********Single Room Profile************* -->
+  <section>
+    <div class="card-wrapper">
+      <div class="card">
+        <!-- card left -->
+        <div class="product-imgs">
+          <div class="img-display">
+            <div class="img-showcase">
+              <img src="{{room.image1.url}}" alt="shoe image">
             </div>
           </div>
         </div>
-      </div>
 
+        <div class="product-content">
+          <h3 class="room-title">{{room.city}}</h3>
+          {% comment %} <a href="#" class="product-link">new</a> {% endcomment %}
+          
+
+          <div class="product-price">
+            <p class="new-price">Price: <span>Rs. {{room.room_price}}</span></p>
+          </div>
+
+          <div class="product-detail">
+            <h2>More about Room: </h2>
+            
+            <ul>
+              <li>Parking: <span>
+                
+                {% if room.parking %}
+                Yes
+                {% else %}
+                No
+                {% endif %}
+                
+
+
+              </span></li>
+              <li>Area of Rooms: <span> {{room.area_of_room}} </span></li>
+              <li>No of Rooms: <span>{{room.available_rooms}}/{{room.number_of_room}} </span></li>
+              <li>Floor: <span>{{room.floor}}</span></li>
+              <li>Address: <span>{{room.address}}</span></li>
+              <li>Contact: <span>{{room.owner.phone}}</span></li>
+              
+              <li>Rating: <span><b>{{reviews_avg.rate__avg}}</b>({{reviews_count}} )
+                 <div class="product-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div></span></li>
+            </ul>
+          </div>
+
+          <div class="purchase-info">
+            <button type="button" class="btn">
+              Book
+            </button>
+            <button type="button" class="btn">Rate this room</button>
+          </div>
+        </div>
+      </div>
+  </section>
+  {% comment %} <div class="categories" id="rooms">
+
+    <h1 class="heading"> Recently Viewed Rooms</h1>
+
+    <div class="box-container">
+      {% for s_room in sessionRoomObj %}
+      <div class="box">
+        <img src=" " class="rImg" alt="">
+        <h3>Kitchen</h3>
+        <p>Price: &nbsp;<b>Rs. 5000</b> </p>
+        <p>Location: &nbsp;<b>{{request.session.get('recently_viewed')}}</b> </p>
+        <a href="#" class="viewDetainbtn">View details</a>
+      </div>
       {% endfor %}
+      <div class="box">
+        <img src="image/room1.jpg" class="rImg" alt="">
+        <h3>Single Room</h3>
+        <p>Price: &nbsp;<b>Rs. 6,000</b> </p>
+        <p>Location: &nbsp;<b>Baneshwor</b> </p>
+        <a href="#" class="viewDetainbtn">View details</a>
+      </div>
 
+      <div class="box">
+        <img src="image/room2.jpg" class="rImg" alt="">
+        <h3>Kitchen room</h3>
+        <p>Price: &nbsp;<b>Rs. 4,500</b> </p>
+        <p>Location: &nbsp;<b>Baneshwor</b> </p>
+        <a href="#" class="viewDetainbtn">View details</a>
+      </div>
+  
     </div>
-  </div>
-</section>
-{% endblock %}
+  </div> {% endcomment %}
+
+  <!-- footer section starts  -->
+  <br><br><br><br>
+  <footer class="footer-distributed" id="aboutUs">
+
+    <div class="footer-left">
+      <h3>Rental<span>Zone</span></h3>
+
+      <p class="footer-links">
+        <a href="#">Home</a>
+        |
+        <a href="#">About</a>
+        |
+        <a href="#">Support us</a>
+      </p>
+
+      <p class="footer-company-name">Copyright © All rights reserved</p>
+    </div>
+
+    <div class="footer-center" id="contactUs">
+      <h3>Get in touch</h3>
+      <div>
+        <i class="fa fa-map-marker"></i>
+        <p><span>Baneshwor</span>
+          Kathmandu</p>
+      </div>
+
+      <div>
+        <i class="fa fa-phone"></i>
+        <p>+977 982158**27</p>
+      </div>
+      <div>
+        <i class="fa fa-envelope"></i>
+        <p><a href="">aba@gmail.com</a></p>
+      </div>
+    </div>
+    <div class="footer-right">
+      <p class="footer-company-about">
+        <span>About us</span>
+        <strong>Rental Zone</strong>is a platform to find room and flat.
+      </p>
+      <div class="footer-icons">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-instagram"></i></a>
+        <a href="#"><i class="fa fa-linkedin"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-youtube"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- footer section ends -->
+
+
+  <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+</body>
+
+</html>

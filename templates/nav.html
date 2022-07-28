@@ -1,5 +1,4 @@
-{% extends 'homeBase.html' %}
-
+{% load static %}
 <nav>
     <input type="checkbox" id="show-menu">
     <label for="show-menu" class="menu-icon"><i class="fas fa-bars"></i></label>
@@ -7,15 +6,22 @@
       <div class="logo"><a href="#">Rental&nbsp;Zone</a></div>
       <ul class="links">
         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-        <li><a href="#home">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="#aboutUs">About</a></li>
-        <li><a href="#rooms">Rooms</a></li>
+        <li><a href="{% url 'roomList' %}">Rooms</a></li>
         <li><a href="#contactUs">Contact</a></li>
         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-        <button type="submit" class="navButton" id="loginbtn">&nbsp; Login &nbsp;</button>
-        <button type="submit" class="navButton" id="registerbtn">&nbsp; Register &nbsp;</button>
-        <button type="submit" class="navButton" id="userProfile">&nbsp; Profile &nbsp;</button>
-        <button type="submit" class="navButton" id="logout">&nbsp; Logout &nbsp;</button>
+        
+        {% if request.user.is_staff %}
+        <li><a href="/accounts/dashboard" class="navButton" >Dashboard</a></li>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <li><a href="/accounts/logout" class="navButton" >Logout</a></li>
+        <li><a href="/accounts/userProfile" class="navButton" >Profile</a></li>
+        {% else %}  
+        <li><a href="{% url 'login' %}" class="navButton" >Login</a></li>
+        <li><a href="/accounts/register" class="navButton" >Register</a></li>
+        {% endif%}
     </div>
   </nav>

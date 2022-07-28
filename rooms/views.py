@@ -65,10 +65,15 @@ def roomView(request,pk):
             recent_room, key=lambda x: session['recently_viewed'].index(x.id)
         )
         session['recently_viewed'].insert(0,room.id)
-        if len(session['recently_viewed'])> 5:
+        if len(session['recently_viewed'])> 3:
             session['recently_viewed'].pop()
     else:
         session['recently_viewed'] = [room.id]
+        
+    
+    # sessionRoomId = request.session.get('recently_viewed')
+    # sessionRoomObj = Room.objects.filter(id=sessionRoomId)
+    # context.update({'sessionRoomObj': sessionRoomObj})
         
     session.modified = True 
     # session handeling

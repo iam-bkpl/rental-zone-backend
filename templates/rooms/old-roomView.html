@@ -1,0 +1,173 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<section style="background-color: #eee">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6 col-xl-4">
+        <div class="card text-black">
+          <i class="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
+          <img
+            src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/3.webp"
+            class="card-img-top"
+            alt="Apple Computer"
+          />
+          <div class="card-body">
+            <div class="text-center">
+              <h5 class="card-title">{{room.address}}</h5>
+              <p class="text-muted mb-4">{{room.owner}}</p>
+            </div>
+            <div>
+              <div class="d-flex justify-content-between">
+                <span>Number of Rooms</span
+                ><span>{{room.available_rooms}}/{{room.number_of_room}}  </span>
+              </div>
+              <div class="d-flex justify-content-between">  
+                <span>Price</span><span>{{room.room_price}} </span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span>City</span><span>{{room.city}} </span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span>Rating</span><span>{{reviews_avg.rate__avg}} </span>
+              </div>
+            </div>
+            <div
+              class="d-flex justify-content-between total font-weight-bold mt-4"
+            >
+              <span>Country</span><span>{{room.country}} </span>
+            </div>
+
+            {%if user.user_type == 'room_owner' %}
+
+            <div
+              class="d-flex justify-content-between total font-weight-bold mt-4"
+            >
+            <a href="/editRoom/{{room.id}}">  <button class="success">Update</button
+              >
+            </a>
+            <a href="/deleteRoom/{{room.id}}">
+              <button class="Danger">Delete</button>
+            </a>
+            </div>
+            {% endif %}
+
+            {% if user.user_type == "customer" %}
+            <a href="/bookRoom/{{room.id}}">
+              <button class="Danger">Book</button>
+            </a>
+            {% comment %} {% if user.user_type == "customer" %}
+            <form method="POST" action="/rateRoom/{{room.id}} " >
+              {% csrf_token %}
+              <div class="form-group">
+                <input type="text" name="text" class="form-control" id="" aria-describedby="emailHelp" placeholder="Enter Text">
+              </div>
+              <select class="form-select" name="rate" aria-label="Default select example">
+                <option selected>Rate form 0-10</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            {% endif %} {% endcomment %}
+            <a href="/rateRoomView/{{room.id}}">
+              <button class="Danger">Rate</button>
+            </a>
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {% for review in reviews  %}
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-0 border" style="background-color: #f0f2f5;">
+        <div class="card-body p-4">
+ 
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div class="d-flex flex-row align-items-center">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp" alt="avatar" width="25"
+                    height="25" />
+                  <p class="small mb-0 ms-2">Username : {{review.user}} </p>
+                </div>
+                <div class="d-flex flex-row align-items-center">
+                  <p class="small text-muted mb-0">{{review.rate}}/10</p>
+                </div>
+                <p class="small text-muted mb-0">{{review.date}} </p>
+               
+              </div>
+            </div>
+            <p>{{review.text}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {% endfor %}
+
+
+
+</section>
+<h3 class="text-success px-3"> Resently Viewed Products </h3>
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row">
+
+      {% for recent_room in recently_viewed_rooms %}
+
+      <div class="col-md-6 col-lg-4 mb-4 mb-md-0">
+        <div class="card">
+          <div class="d-flex justify-content-between p-3">
+            <p class="lead mb-0">Today's Combo Offer</p>
+            <div
+              class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+              style="width: 35px; height: 35px;">
+              <p class="text-white mb-0 small">x2</p>
+            </div>
+          </div>
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/7.webp"
+            class="card-img-top" alt="Laptop" />
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <p class="small"><a href="#!" class="text-muted">Laptops</a></p>
+              <p class="small text-danger"><s>$1199</s></p>
+            </div>
+
+            <div class="d-flex justify-content-between mb-3">
+              <h5 class="mb-0">HP Envy</h5>
+              <h5 class="text-dark mb-0">$1099</h5>
+            </div>
+
+            <div class="d-flex justify-content-between mb-2">
+              <p class="text-muted mb-0">Available: <span class="fw-bold">7</span></p>
+              <div class="ms-auto text-warning">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+{% endblock %}
