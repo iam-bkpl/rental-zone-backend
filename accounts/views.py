@@ -1,8 +1,10 @@
 from email import message
+from gettext import NullTranslations
 import pdb
 # from os import uname
 from urllib import request
 from urllib.parse import urldefrag
+from xml.dom.domreg import registered
 from django.conf import UserSettingsHolder
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -34,8 +36,8 @@ import random
 #     })
 # import pdb
 # pdb.set_trace()
-global otpNo
-otpNo = 0
+# global otpNo
+# otpNo = 0
 
         
 # send_mail(
@@ -45,89 +47,144 @@ otpNo = 0
 #     ['to@example.com'],
 #     fail_silently=False,
 # )
-        
+ 
+# global registered
+# global un
+# global fn
+# registered = False
+    # global no
+# no = random.randrange(1111,9999)
+# global userEmail
+# request.session['no'] = no
+# print(request.session.get('no'))
 
-
-
+global userEmail
+userEmail = ''
 def registerUser(request):
     if(request.user.is_authenticated and not request.user.is_staff):
         return redirect('/')
-        
+    
+   
     # import pdb;
     # pdb.set_trace()
-    
+    global un
+    global userEmail
     if request.method == "POST":
         first_name = request.POST.get('first_name')
+        fn = first_name
         last_name =  request.POST.get('last_name')
         username =  request.POST.get('username')
+        un = username
+        request.session['username'] = username
         password = request.POST.get('password')
         confirmPassword = request.POST.get('confirmPassword')
         email =  request.POST.get('email')
+        userEmail = email
         phone =  request.POST.get('phone')
         # gender =  request.POST.get('gender')
         user_type =  request.POST.get('user_type')
         address =  request.POST.get('address')
         certificate =  request.FILES.get('certificate')
+  
+       # Check if user already exists
+        if(not first_name):
+            messages.warning(request, "First name can't be empty")
+            return render(request, 'accounts/register.html')
+        if (not last_name):
+            messages.warning(request, "Last name can't be empty")
+            return render(request, 'accounts/register.html')
+        if(not first_name):
+            messages.warning(request, "First name can't be empty")
+            return render(request, 'accounts/register.html')
+        if (not username):
+            messages.warning(request, "username can't be empty")
+            return render(request, 'accounts/register.html')
+        if (not password):
+            messages.warning(request, "Enter a valid password")
+            return render(request, 'accounts/register.html')
+        if (not email):
+            messages.warning(request, "Email can't be empty")
+            return render(request, 'accounts/register.html')
+        if (not phone):
+            messages.warning(request, "Please enter a valid phone no ")
+            return render(request, 'accounts/register.html')
+        if (not user_type):
+            user_type = "customer"
         
+        if (not address):
+            messages.warning(request, "Address can't be empty ")
+            return render(request, 'accounts/register.html')
+            
+        # if (not certificate):
+        #     messages.warning(request,"Please select a photo")
+        #     return render(request, 'accounts/register.html')
+       
         
-        # Check if user already exists
+
+      
         if(User.objects.filter(username=username).exists()):
             messages.warning(request, "Username Taken")
-            return render(request, '/accounts/register.html')
+            return render(request, 'accounts/register.html')
         elif(User.objects.filter(email=email).exists()):
             messages.warning(request, "Email Taken")
             return render(request, 'accounts/register.html')
         if(password != confirmPassword):
             messages.warning(request,"Password Doesn't match")
-            return render(request,'/accounts/register.html')
+            return render(request,'accounts/register.html')
         
-        
-        global userEmail
-        userEmail = email
-        global uname
-        uname  = username
+    
         
         user = User.objects.create_user(
             username = username,password=password,email=email,first_name=first_name,last_name=last_name)
         # user.is_active = False
         user.save()
         
-        
-        
-        
-        
-        
         customUser = CustomUser(user=user,phone=phone,user_type=user_type,address=address,certificate=certificate)
         customUser.save()
         # auth_login(request, user)
         
-        messages.success(request,"User successfully Created")
+        messages.success(request,"User successfully Registered")
         
         if request.user.is_staff:
             return redirect('/accounts/dashUser')
         
-        return redirect('/accounts/login.html')
+        return render(request,'/accounts/login.html')
+        
+      
+        # send_mail('Your Rental Zone OTP Verification','Your otp is '+str(no),
+        #           'iam.bkpl03@gmail.com',
+        #           [userEmail],
+        #           fail_silently=False,
+        #           )
+        # msg = EmailMessage('Hello',
+        #             #   'Your Rental Zone OTP Verification Your otp is { }'.format(no), to=[userEmail])
+        # msg = EmailMessage('Hello',
+        #               'Your Rental Zone OTP Verification Your otp is '+str(no), to=[userEmail])
+        # msg.send()
         # return render(request, 'accounts/otp.html')
     
     return render(request,'accounts/register.html')
 
+global no
+no = 0
 
 # def otp(request):
-#     import pdb
-#     pdb.set_trace()
-#     global otpNo
+#     global no 
+#     global userEmail
 #     if request.method == "POST":
-#         otp = request.POST.get('otp')
-#         if (int(otp)==int(otpNo)):
-#             return redirect('/accounts/otp')
+#         otp = request.POST.get('otp','')
+#         # no =  request.session.get('no')
+#         # un = request.session.get('username')
+#         if (int(otp)==int(no)):
+#             return redirect('accounts/login')
 #         else:
-#             us = User.objects.get(username = uname)
-#             us.delete()
-#             # us = User.objects.get(email= userEmail)
-#             # us.delete()
+#             un = User.objects.get(username = un)
+#             un.delete()
+#             # cu = CustomUser.objects.filter(first_name= un)
+#             # cu.delete()
 #             return HttpResponse("Invalid OTP")
 #     else:
-#         no = random.randrange(1000,9999)
+#         no = random.randrange(1111,9999)
 #         send_mail('Your Rental Zone OTP Verification','Your otp is { }'.format(no),
 #                   'iam.bkpl03@gmail.com',
 #                   [userEmail],
@@ -136,7 +193,7 @@ def registerUser(request):
 #         msg = EmailMessage('Request Callback',
 #                       'Your Rental Zone OTP Verification','Your otp is { }'.format(no), to=[userEmail])
 #         msg.send()
-#         return render(request,'accounts/otp.html',{})
+#         return render(request,'/accounts/otp.html',{})
         
 
 def login(request):

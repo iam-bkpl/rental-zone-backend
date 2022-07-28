@@ -15,6 +15,8 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db.models import Avg
+from matplotlib.style import available
+from numpy import number
 from accounts import models
 from accounts.views import userProfile
 from rooms.forms import RoomForm,RateForm
@@ -204,8 +206,8 @@ def updateRoom(request,pk):
                 description = request.POST.get('description')
                 map_link = request.POST.get('map_link')
                 
-                if int(number_of_room) > int(room.available_rooms):
-                    messages.success(request,"Please Select less than"+str(room.available_rooms))
+                if int(number_of_room) < int(room.available_rooms):
+                    messages.success(request,"Please Select less than"+str(room.number_of_room))
                     context= {'room':room}
                     return render(request,'rooms/roomView.html',context)
         
@@ -264,15 +266,23 @@ def bookRoom(request,pk):
         payment_method = request.POST.get('payment_method')
         amount = request.POST.get('amount')
         paid = request.POST.get('paid')
+        
+        
+        
         if paid == 'paid':
             paid = True
-
+        else:
+            paid = False
+            
         if int(number_of_rooms) > room.available_rooms:
             messages.success(request,"Please Select less than"+str(room.available_rooms))
             context= {'room':room}
             return render(request,'rooms/bookRoom.html',context)
-        
-        if checkin_date > str(now):
+        else:
+            room.available_rooms = int(room.available_rooms) -int(number_of_rooms)
+            room.save()
+            
+        if checkin_date < str(now):
             messages.success(request,"Enter a valid Date")
             context= {'room':room}
             return render(request,'rooms/bookRoom.html',context)
