@@ -1,110 +1,141 @@
-{% extends 'base.html' %}
+{% load static %}
 
-{% block content %}
-<section class="vh-100" style="background-color: #eee;">
-  <div class="container h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-lg-12 col-xl-11">
-        <div class="card text-black" style="border-radius: 25px;">
-          <div class="card-body p-md-5">
-            <div class="row justify-content-center">
-              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+<!DOCTYPE html>
+<html lang="en">
 
-                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
-                
-              </div>
-                <form action="{% url 'registerUser' %}" method="post" class="mx-1 mx-md-4">
-                  <div class="alert alert-danger col-12">
-                    {% if messages %} {% for message in messages %} {{message}} {% endfor %} {% endif %}
-                    {% csrf_token %}
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="text" name="first_name" id="form3Example1c" class="form-control" placeholder="first name" />
-                    </div>
-                  </div>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" -->
 
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="text" name="last_name" id="form3Example1c" class="form-control" placeholder="last name" />
-                    </div>
-                  </div>
+  <!----======== CSS ======== -->
 
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="text" name="username" id="form3Example1c" class="form-control" placeholder="username" />
-                    </div>
-                  </div>
+  {% comment %} <link rel="stylesheet" href="static/css/register.css"> {% endcomment %}
+  <link rel="stylesheet" href="{% static 'css/register.css' %}"> 
+  <!----===== Iconscout CSS ===== -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="email" id="form3Example3c" name="email" class="form-control" placeholder="email" />
-                    </div>
-                  </div>
+  <title>Responsive Regrisation Form </title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" /> 
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/f815347d2a.js" crossorigin="anonymous"></script> 
+  <script src="{% static 'js/register.js' %}">
+  </script>
 
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="password" id="form3Example4c"  name="password" placeholder="password" class="form-control" />
-                    </div>
-                  </div>
+</head>
 
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="password" id="form3Example4c"  name="confirmPassword" placeholder="confirm Password" class="form-control" />
-                    </div>
-                  </div>
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="text" name="phone" id="form3Example1c" class="form-control" placeholder="phone" />
-                    </div>
-                  </div>
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <select class="form-select" aria-label="Default select example" name="user_type" >
-                        <option default selected disabled value="notnull" name="user_type">--Select User Type--</option>
-                        <option  value="customer" >Customer</option>
-                        <option value="room_owner" >Room Owner</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="text" name="address" id="form3Example1c" class="form-control" placeholder="address" />
-                    </div>
-                  </div>
+<body>
+<!-- header  -->
 
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="file" name="certificate" id="form3Example1c" class="form-control" placeholder="Certificate" />
-                    </div>
-                  </div>
-                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button type="Submit" class="btn btn-primary btn-lg">Register</button>
-                  </div>
+<div class="wrapper">
+  <nav>
+    <input type="checkbox" id="show-menu">
+    <label for="show-menu" class="menu-icon"><i class="fas fa-bars"></i></label>
+    <div class="content">
+      <div class="logo"><a href="#">Rental&nbsp;Zone</a></div>
+      <ul class="links">
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        <li><a href="/">Home</a></li>
+        <li><a href="#aboutUs">About</a></li>
+        <li><a href="{% url 'roomList' %}">Rooms</a></li>
+        <li><a href="#contactUs">Contact</a></li>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        
+        {% if request.user.is_staff %}
+        <li><a href="/accounts/dashboard" class="navButton" >Dashboard</a></li>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <li><a href="/accounts/logout" class="navButton" >Logout</a></li>
+        <li><a href="/accounts/userProfile" class="navButton" >Profile</a></li>
+        {% else %}  
+        <li><a href="{% url 'login' %}" class="navButton" >Login</a></li>
+        <li><a href="/accounts/register" class="navButton" >Register</a></li>
+        {% endif%}
+    </div>
+  </nav>
 
-                </form>
+</div>
+<!-- header ends -->
 
-              </div>
-              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+  <div class="container">
+    <h1>Registration Form</h1>
+    <span id="result"></span>
+    <br>
+    <form action="#" name="form" onsubmit="return validateForm()">
+      <div class="form first">
+        <div class="details personal">
+          <span class="title"></span>
 
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                  class="img-fluid" alt="Sample image">
 
-              </div>
+          <div class="fields">
+            <div class="input-field">
+              <label>First Name</label>
+              <input type="text" name="firstname" id="firstname" placeholder="Enter first name">
+            </div>
+
+            <div class="input-field">
+              <label>Last Name</label>
+              <input type="text" name="lastname" id="lastname" placeholder="Enter last name">
+            </div>
+
+            <div class="input-field">
+              <label>Username</label>
+              <input type="text" name="uname" id="username" placeholder="Enter username">
+            </div>
+
+            <div class="input-field">
+              <label>Email</label>
+              <input type="email" name="email" id="email" placeholder="Enter email ">
+            </div>
+
+            <div class="input-field">
+              <label>Password</label>
+              <input type="password" name="password" id="password" placeholder="Enter Password">
+            </div>
+
+            <div class="input-field">
+              <label>Confirm Password</label>
+              <input type="password" name="cpassword" id="confirm-password" placeholder="Confirm Password">
             </div>
           </div>
         </div>
+        <div class="fields">
+          <div class="input-field">
+            <label>Phone</label>
+            <input type="number" name="phone" id="phone" placeholder="Enter Phone Number">
+          </div>
+
+          <div class="input-field">
+            <label>Select User Type</label>
+            <select required>
+              <option disabled selected>Select User Type</option>
+              <option>Room Owner</option>
+              <option>Customer</option>
+            </select>
+          </div>
+
+          <div class="input-field">
+            <label>Address</label>
+            <input type="text" name="address" id="address" placeholder="Enter Address">
+          </div>
+
+          <div class="input-field">
+            <label>Upload ID image</label>
+            <input type="file" id="file" name="file" multiple>
+          </div>
+        </div>
+
+
+        <button class="nextBtn">
+          <span type="submit" class="btnText" id="btn">Submit</span>
+        </button>
       </div>
-    </div>
   </div>
-</section>
-{% endblock content %}
+  </form>
+  </div>
+</body>
+
+</html>

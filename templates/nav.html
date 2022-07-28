@@ -17,7 +17,7 @@
         <li><a href="/accounts/dashboard" class="navButton" >Dashboard</a></li>
         {% endif %}
         {% if request.user.is_authenticated %}
-        <li><a href="/accounts/logout" class="navButton" >Logout</a></li>
+        <li><a href=" {% url 'logout' %} " class="navButton" >Logout</a></li>
         <li><a href="/accounts/userProfile" class="navButton" >Profile</a></li>
         {% else %}  
         <li><a href="{% url 'login' %}" class="navButton" >Login</a></li>
