@@ -1,76 +1,138 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!----======== CSS ======== -->
 
-{% block content %}
+    <link rel="stylesheet" href=" {% static 'css/add_room.css' %}">
+     
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" /> 
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/f815347d2a.js" crossorigin="anonymous"></script>
+    <script src="../static/js/login.js"></script>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-<form action="" method="post"  class="container" >
-  <!-- 2 column grid layout with text inputs for the first and last names -->
-{% csrf_token %}
-  <!-- Text input -->
+    <!--<title>Add Room </title>--> 
+    
+</head>
+<body>
+    <div class="wrapper">
+        <nav>
+            <input type="checkbox" id="show-menu">
+            <label for="show-menu" class="menu-icon"><i class="fas fa-bars"></i></label>
+            <div class="content">
+              <div class="logo"><a href="#">Rental&nbsp;Zone</a></div>
+              <ul class="links">
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <li><a href="/">Home</a></li>
+                <li><a href="#aboutUs">About</a></li>
+                <li><a href="{% url 'roomList' %}">Rooms</a></li>
+                <li><a href="#contactUs">Contact</a></li>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                
+                {% if request.user.is_staff %}
+                <li><a href="/accounts/dashboard" class="navButton" >Dashboard</a></li>
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                <li><a href=" {% url 'logout' %} " class="navButton" >Logout</a></li>
+                <li><a href="/accounts/userProfile" class="navButton" >Profile</a></li>
+                {% else %}  
+                <li><a href="{% url 'login' %}" class="navButton" >Login</a></li>
+                <li><a href="/accounts/register" class="navButton" >Register</a></li>
+                {% endif%}
+            </div>
+          </nav>
+        
+      </div>
+    <div class="container">
+        <header>Add Room</header>
 
-{% comment %} {% if request.user.is_staff %}
-  <div class="form-outline mb-4">
-    <input type="number" name="owner" id="form6Example3" class="form-control" placeholder="Owner" />
-  </div>
-{% endif %} {% endcomment %}
+        <form action="#" method="post" id="registration">
+            {% csrf_token %}
+            <div class="form first">
+                <div class="details personal">
+                    <span class="title">Room Details</span>
 
-  <div class="form-outline mb-4">
-    <input type="number" name="number_of_room" id="form6Example3" class="form-control" placeholder="number_of_room" />
-  </div>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>No Of Rooms</label>
+                            <input name="number_of_room" type="number" id="room_no" placeholder="Enter room numbers" required>
+                        </div>
 
-  <!-- Text input -->
-  <div class="form-outline mb-4">
-    <input type="number" name="room_price" id="form6Example4" class="form-control" placeholder="room_price" />
-  </div>
-  <div class="form-outline mb-4">
-    <input type="text" name="area_of_room" id="form6Example5" class="form-control" placeholder="Area of room" />
-  </div>
+                        <div class="input-field">
+                            <label>Total Price</label>
+                            <input  name="room_price"  type="number" id="room_price" placeholder="Enter room price" required>
+                        </div>
 
-  <!-- Email input -->
-  <div class="form-outline mb-4">
-    <input type="text" name="floor" id="form6Example5" class="form-control" placeholder="floor" />
-  </div>
+                        <div class="input-field">
+                            <label>Area Of Room</label>
+                            <input name="area_of_room" type="text" id="" placeholder="Enter total area" required>
+                        </div>
 
-  <!-- Number input -->
-  <div class="form-outline mb-4">
-    <select class="form-select" name="parking" aria-label="Default select example">
-      <option default selected disabled value="notnull" >--Parking--</option>
-      <option  value="True" >Yes</soption>
-      <option value="False " >No</option>
-    </select>
-  </div>
-  <div class="form-outline mb-4">
-    <input type="text" name="address" id="form6Example5" class="form-control" placeholder="address" />
-  </div>
-  <div class="form-outline mb-4">
-    <input type="text" name="city" id="form6Example5" class="form-control" placeholder="city" />
-  </div>
-  <div class="form-outline mb-4">
-    <input type="text" name="state" id="form6Example5" class="form-control" placeholder="state" />
-  </div>
-  <div class="form-outline mb-4">
-    <input type="text" name="country" id="form6Example5" class="form-control" placeholder="country" />
-  </div>
-  <div class="form-outline mb-4">
-    <input type="file" name="image1" id="form6Example5" class="form-control" placeholder="image" />
-  </div>
-  <div class="form-outline mb-4">
-    <input type="file" name="image2" id="form6Example5" class="form-control" placeholder="image2" />
-  </div>
-  <div class="form-outline mb-4">
-    <input type="file" name="image3" id="form6Example5" class="form-control" placeholder="floor" />
-  </div>
-  <div class="form-outline mb-4">
-    <input type="file" name="image4" id="form6Example5" class="form-control" placeholder="floor" />
-  </div>
-  <div class="form-outline mb-4">
-    <input type="text" name="description" id="form6Example5" class="form-control" placeholder="desc" />
-  </div>
-  <div class="form-outline mb-4">
-    <input type="text" name="map_link" id="form6Example5" class="form-control" placeholder="map_link" />
-  </div>
-  <!-- Message input -->
-  <!-- Submit button -->
-  <button type="submit" class="btn btn-primary btn-block mb-4">Add Room</button>
-</form>
+                        <div class="input-field">
+                            <label>Floor</label>
+                            <input type="text" name="floor" id="" placeholder="Enter total area" required>
+                        </div>
 
-{% endblock content %}
+                        <div class="input-field">
+                            <label>Parking </label>
+                            <select name="parking" required>
+                                <option disabled selected>Parking Available</option>
+                                <option value="True">Yes</option>
+                                <option value="False">No</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-field">
+                            <label>Address</label>
+                            <input type="text"  name="address" id="" placeholder="Enter Address" required>
+                        </div>
+                    </div>
+                </div>
+                     <div class="fields">
+                        <div class="input-field">
+                            <label>City</label>
+                            <input type="text"  name="city" placeholder="Enter city" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>State</label>
+                            <input type="text" name="state" id="phone" placeholder="Enter State" required>
+                        </div>
+                        
+
+                        <div class="input-field">
+                            <label>Room Discription</label>
+                            <input type="textarea" id="address" placeholder="Enter discription" required>
+                        </div>
+
+                         <div class="input-field">
+                            <label>Room Images</label>
+                            <input type="file" id="file" name="image1" multiple>
+                            <input type="file" id="file" name="image2" multiple>
+                            <input type="file" id="file" name="image3" multiple>
+                            
+                        </div>
+                    </div>
+
+                    <button type="submit" class="nextBtn">
+                        <span class="btnText">Submit</span>
+                    </button>
+                </div> 
+            </div>
+            </div>
+        </form>
+    </div>
+
+    <!--<script src="script.js"></script>-->
+    <script src="/assets/js/register.js"></script>
+</body>
+</html>

@@ -141,7 +141,7 @@ def addRoom(request):
                 address = request.POST.get('address')
                 city = request.POST.get('city')
                 state = request.POST.get('state')
-                country = request.POST.get('country')
+                country = "Nepal"
                 image1 = request.FILES.get('image1')
                 image2 = request.FILES.get('image2')
                 image3 = request.FILES.get('image3')
