@@ -28,7 +28,12 @@ import datetime
 # Main page
 def index(request):
     roomList = Room.objects.all()
-    return render(request,'index.html')
+    
+    latest_four = Room.objects.all().order_by('-id')[:4]
+    latest_four = reversed(latest_four)
+
+    context ={'latest_four':latest_four}
+    return render(request,'index.html',context)
 
 # List of room 
 def roomsList(request):

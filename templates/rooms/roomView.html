@@ -83,12 +83,31 @@
               </div></span></li>
             </ul>
           </div>
+          {%if user.user_type == 'room_owner' %}
+
+            <div
+              class="d-flex justify-content-between total font-weight-bold mt-4"
+            >
+            <a href="/editRoom/{{room.id}}">  <button class="success">Update</button
+              >
+            </a>
+            <a href="/deleteRoom/{{room.id}}">
+              <button class="Danger">Delete</button>
+            </a>
+            </div>
+            {% endif %}
 
           <div class="purchase-info">
+            {% if user.user_type == "customer" %}
+            <a href="/bookRoom/{{room.id}}">
             <button type="button" class="btn">
               Book
             </button>
+          </a>
+          <a href="/rateRoomView/{{room.id}}">
             <button type="button" class="btn">Rate this room</button>
+          </a>
+          {% endif %}
           </div>
         </div>
       </div>

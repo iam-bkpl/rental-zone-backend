@@ -31,26 +31,6 @@
   <div class="wrapper">
 
     {% include './nav.html' %}
-
-    {% comment %} <nav>
-      <input type="checkbox" id="show-menu">
-      <label for="show-menu" class="menu-icon"><i class="fas fa-bars"></i></label>
-      <div class="content">
-        <div class="logo"><a href="#">Rental&nbsp;Zone</a></div>
-        <ul class="links">
-          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-          <li><a href="#home">Home</a></li>
-          <li><a href="#aboutUs">About</a></li>
-          <li><a href="#rooms">Rooms</a></li>
-          <li><a href="#contactUs">Contact</a></li>
-          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-          <button type="submit" class="navButton" id="loginbtn">&nbsp; Login &nbsp;</button>
-          <button type="submit" class="navButton" id="registerbtn">&nbsp; Register &nbsp;</button>
-          <button type="submit" class="navButton" id="userProfile">&nbsp; Profile &nbsp;</button>
-          <button type="submit" class="navButton" id="logout">&nbsp; Logout &nbsp;</button>
-      </div>
-    </nav> {% endcomment %}
   </div>
 
   <!-- header ends -->
@@ -70,67 +50,17 @@
 
     <div class="box-container">
 
+      {% for room in latest_four %}
       <div class="box">
-        <img src="image/room4.jpeg" alt="">
-        <h3>Kitchen</h3>
-        <p>Price: &nbsp;<b>Rs. 5000</b> </p>
-        <p>Location: &nbsp;<b>Baneshwor</b> </p>
-        <a href="#" class="viewDetainbtn">View details</a>
+        <img src="{{room.image1.url}}" alt="">
+        <h3>{{room.address}}</h3>
+        <p>Price: &nbsp;<b>Rs. {{room.room_price}}</b> </p>
+        <p>Location: &nbsp;<b>{{room.city}}</b> </p>
+        <p>Rooms: &nbsp;<b>  {{room.available_rooms}}</b> </p>
+        <a href="/roomView/{{room.id}} " class="viewDetainbtn">View details</a>
       </div>
-
-      <div class="box">
-        <img src="image/room1.jpg" alt="">
-        <h3>Single Room</h3>
-        <p>Price: &nbsp;<b>Rs. 6,000</b> </p>
-        <p>Location: &nbsp;<b>Baneshwor</b> </p>
-        <a href="#" class="viewDetainbtn">View details</a>
+      {% endfor %}    
       </div>
-
-      <div class="box">
-        <img src="image/room2.jpg" alt="">
-        <h3>Kitchen room</h3>
-        <p>Price: &nbsp;<b>Rs. 4,500</b> </p>
-        <p>Location: &nbsp;<b>Baneshwor</b> </p>
-        <a href="#" class="viewDetainbtn">View details</a>
-      </div>
-
-      <div class="box">
-        <img src="image/room3.jpeg" alt="">
-        <h3>attached kitchen</h3>
-        <p>Price: &nbsp;<b>Rs. 9,500</b> </p>
-        <p>Location: &nbsp;<b>Baneshwor</b> </p>
-        <a href="#" class="viewDetainbtn">View details</a>
-      </div>
-      <div class="box">
-        <img src="image/room4.jpeg" alt="">
-        <h3>Attached kitchen</h3>
-        <p>Price: &nbsp;<b>Rs. 12,000</b> </p>
-        <p>Location: &nbsp;<b>Baneshwor</b> </p>
-        <a href="#" class="viewDetainbtn">View details</a>
-      </div>
-      <div class="box">
-        <img src="image/room5.jpg" alt="">
-        <h3>Apartment</h3>
-        <p>Price: &nbsp;<b>Rs. 15,000</b> </p>
-        <p>Location: &nbsp;<b>Baneshwor</b> </p>
-        <a href="#" class="viewDetainbtn">View details</a>
-      </div>
-      <div class="box">
-        <img src="image/room6.jpeg" alt="">
-        <h3>Single Room</h3>
-        <p>Price: &nbsp;<b>Rs. 8,000</b> </p>
-        <p>Location: &nbsp;<b>Baneshwor</b> </p>
-        <a href="#" class="viewDetainbtn">View details</a>
-      </div>
-      <div class="box">
-        <img src="image/room9.jpg" alt="">
-        <h3>House</h3>
-        <p>Price: &nbsp;<b>Rs. 2,500,000</b> </p>
-        <p>Location: &nbsp;<b>Baneshwor</b> </p>
-        <a href="#" class="viewDetainbtn">View details</a>
-      </div>
-
-    </div>
   </section>
 
   <!-- slideImage   -->

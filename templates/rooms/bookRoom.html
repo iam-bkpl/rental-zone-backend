@@ -1,71 +1,111 @@
-{% extends 'base.html' %}
+{% load static %}
 
-{% block content %}
-<section class="vh-100 bg-image"
-  style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
-  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-    <div class="container h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-          <div class="card" style="border-radius: 15px;">
-            <div class="card-body p-5">
-              <h2 class="text-uppercase text-center mb-5">Book Room</h2>
-              Number of room = {{room.available_rooms}}
-              <form method="POST" action="" >
-                {% csrf_token %}
-                <div class="form-outline mb-4">
-                  <input type="number" name="number_of_rooms" placeholder="number_of_rooms" id="form3Example1cg" class="form-control nameform-control-lg" />
-                </div>
+<!DOCTYPE html>
+<html lang="en">
 
-                {% comment %} <div class="form-outline mb-4">
-                  <label class="form-check-label" for="form2Example3g">
-                    Book Date</u></a>
-                  </label>
-                  <input type="date" name="book_date" placeholder="book_date" id="form3Example3cg" class="form-control form-control-lg" />
-                </div> {% endcomment %}
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" -->
 
-                <div class="form-outline mb-4">
-                  <label class="form-check-label" for="form2Example3g">
-                    Checkin Date</u></a>
-                  </label>
-                  <input type="date" name="checkin_date" placeholder="checkin_date" id="form3Example4cg" class="form-control form-control-lg" />
-                </div>
+  <!----======== CSS ======== -->
+ 
+  <link rel="stylesheet" href=" {% static 'css/book.css' %}">
 
-                
-                <div class="form-outline flex-fill mb-0">
-                  <select class="form-select" aria-label="Default select example" name="user_type" >
-                    <option selected default  value="null" name="payment_)_method">--Select Payment Method--</option>
-                    <option  value="online" >Online</option>
-                    <option  value="offline" >Offline</option>
+  <!----===== Iconscout CSS ===== -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-                  </select>
+  <title>Responsive Regrisation Form </title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" /> 
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/f815347d2a.js" crossorigin="anonymous"></script> 
+  {% comment %} <script src="../static/js/register.js"> {% endcomment %}
+  </script>
 
-                  <div class="form-outline mb-4">
-                    <input type="number" name="amount" placeholder="amount" id="form3Example1cg" class="form-control nameform-control-lg" />
-                  </div>
+</head>
 
-                <div class="form-check d-flex justify-content-center mb-5">
-                  <input class="form-check-input me-2" type="checkbox" value="paid" name="paid" id="form2Example3cg" />
-                  <label class="form-check-label" for="form2Example3g">
-                    paid</u></a>
-                  </label>
-                </div>
+<body>
+<!-- header  -->
 
-
-                <div class="d-flex justify-content-center">
-                  <button type="submit"
-                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Book</button>
-                </div>
-
-              </form>
-
-            </div>
-          </div>
-        </div>
-      </div>
+<div class="wrapper">
+  <nav>
+    <input type="checkbox" id="show-menu">
+    <label for="show-menu" class="menu-icon"><i class="fas fa-bars"></i></label>
+    <div class="content">
+      <div class="logo"><a href="#">Rental&nbsp;Zone</a></div>
+      <ul class="links">
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        <li><a href="/">Home</a></li>
+        <li><a href="#aboutUs">About</a></li>
+        <li><a href="{% url 'roomList' %}">Rooms</a></li>
+        <li><a href="#contactUs">Contact</a></li>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        
+        {% if request.user.is_staff %}
+        <li><a href="/accounts/dashboard" class="navButton" >Dashboard</a></li>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <li><a href="/accounts/logout" class="navButton" >Logout</a></li>
+        <li><a href="/accounts/userProfile" class="navButton" >Profile</a></li>
+        {% else %}  
+        <li><a href="{% url 'login' %}" class="navButton" >Login</a></li>
+        <li><a href="/accounts/register" class="navButton" >Register</a></li>
+        {% endif%}
     </div>
+  </nav>
+
+</div>
+<!-- header ends -->
+
+
+
+  <div class="container">
+    <h1>Book Form</h1>
+    <span id="result"></span>
+    <br>
+    <form method="POST" action="" onsubmit="return validateForm()">
+      {% csrf_token %}
+      <div class="form first">
+        <div class="details personal">
+          <span class="title"></span>
+          <div class="fields">
+            <div class="input-field">
+              <label>No of Rooms:</label><br>
+              <input type="number" name="number_of_rooms" id="rnum" placeholder="Enter number of rooms">
+            </div>
+            <div class="input-field">
+              <label>Amount</label><br>
+              <input type="number" name="amount" id="rnum" placeholder="Enter amount paid">
+            </div>
+            <div class="input-field">
+              <label>Checkin Date</label><br>
+              <input type="date" name="checkin_date" id="date" placeholder="Enter valid date">
+            </div>
+            <div class="input-field">
+                <label>Payment Method</label>
+                <select name="method" id="method" name="user_type">
+                    <option selected default value="none">Select Method</option>
+                    <option value="online" >Online</option>
+                    <option value="offline">Offline</option>
+                  </select>
+            </div>
+            <div class="check">
+                <input type="checkbox">
+                <label>paid</label>
+              </div>
+
+        <button type="submit" class="nextBtn">
+          <span type="submit" class="btnText" id="btn">Book</span>
+          <button type="submit" value="Book">
+          </button>
+        </button>
+      </div>
   </div>
-</section>
+  </form>
+  </div>
+</body>
 
-
-{% endblock %}
+</html>
