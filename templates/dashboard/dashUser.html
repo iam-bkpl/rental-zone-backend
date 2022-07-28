@@ -1,59 +1,53 @@
-{% extends 'base.html' %}
+{% extends './dashBase.html' %}
 {% load static %}
-{% block content%}
-
-<div class="container-fluid">
-  <div class="row">
-    {% include './sidebar.html' %}
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" id="dashboardDataId">
-
-      <h2>Users</h2>
-      <a href=" {% url 'registerUser' %} " ><button> Create </button> </a>
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">User Id</th>
-              <th scope="col">Username</th>
-              <th scope="col">Address</th>
-              <th scope="col">User Type</th>
-              <th scope="col">Phone</th>
-              <th scope="col">Update</th>
-              <th scope="col">Delete</th>
-              {% comment %} 
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th> {% endcomment %}
-
-            </tr>
-          </thead>
-          <tbody>
-
-            {% for user in users %}
-
-            <tr>
-              <td>{{user.id}} </td>
+{% block content %}
+    </div>
+    <div id="main">
+    
+      <div class="head">
+          <div class="col-div-6">
+    <span style="font-size:30px;cursor:pointer; color: rgb(0, 0, 0);" class="nav"  >&#9776; Users</span>
+    <span style="font-size:30px;cursor:pointer; color: rgb(0, 0, 0);" class="nav2"  >&#9776; Users</span>
+    </div>
+    <br>
+    <br>
+    <br><br>
+    <div class="col-div-8">
+    <div class="box-8">
+    <div class="content-box">
+    <a href=" {% url 'registerUser' %} " ><button> Create </button> </a>
+    <br><br>
+    <table class="appointments">
+      <thead>
+        <td>User ID</td>
+        <td>Username</td>
+        <td>Address</td>
+        <td>User type</td>
+        <td>Phone</td>
+        <td>Update</td>
+        <td>Delete</td>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          <tr>
+              <td>{{user.id}}</td>
               <td>{{user.username}}</td>
               <td>{{user.customuser.address}}</td>
               <td>{{user.customuser.user_type}}</td>
-              <td>{{user.customuser.phone}} </td>
-              <td><a href=" {% url 'editProfile' user.id %}  "> <button> update </button></a> </td>
-              <td><a href=" "> <button> delete </button></a> </td>
+              <td>{{user.customuser.phone}}</td>
+              <td><a href=" {% url 'editProfile' user.id %}  "> <i class="far fa-edit"></i></a></td>
+              <td><a href=" "><i class="far fa-trash-alt"></i></a></td>
             </tr>
-           {% endfor %}
-          </tbody>
-        </table>
-      </div>
-
-      
-
-
-    </main>
-
-
-  </div>
-</div>
-
-
-
-{% endblock %}
+            {% endfor %}
+          <tr>
+              </tbody>
+              </table>
+              </div>
+              </div>
+              </div>
+              </div>
+              </div>
+          
+            </body>
+              {% endblock content %}   
+    

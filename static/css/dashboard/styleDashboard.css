@@ -1,0 +1,290 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+.container {
+    position: relative;
+    width: 100%;
+}
+.mainCCC{
+    box-shadow: 0 0 20px rgba(0, 5, 0, 20);
+    margin-top: 30px;
+    border-radius: 5px;
+  }
+
+
+.sidebar {
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background: rgb(6, 34, 39);
+    overflow-x: hidden;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+.sidebar ul li {
+    width: 100%;
+    list-style: none;
+}
+
+.sidebar ul li:hover {
+    background: rgb(0, 11, 12);
+}
+
+.sidebar ul li:first-child {
+    line-height: 60px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid #fff;
+}
+
+.sidebar ul li:first-child:hover {
+    background: none;
+}
+
+.sidebar ul li a {
+    width: 100%;
+    text-decoration: none;
+    color: #fff;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar ul li a i {
+    min-width: 60px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.sidebar .title {
+    padding: 0 10px;
+    font-size: 20px;
+}
+
+.main {
+    position: absolute;
+    width: calc(100% - 300px);
+    min-height: 100vh;
+    left: 300px;
+    background: #f5f5f5;
+}
+
+.top-bar {
+    position: fixed;
+    height: 60px;
+    width: calc(100% - 300px);
+    background: #fff;
+    display: grid;
+    grid-template-columns: 10fr 0.4fr 1fr;
+    grid-gap: 5px;
+    align-items: center;
+    color: #444;
+    padding: 0 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+.icon-home{
+    padding-right: 0;
+    float: right;
+}
+.icon-home i {
+    font-size: 30px;
+    color: rgb(50, 51, 53);
+    float: right;
+    
+}
+
+.cards {
+    margin-top: 100px;
+    width: 100%;
+    padding: 35px 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    min-height: auto;
+    
+}
+
+.cards .card {
+    background: rgb(255, 234, 234);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.4);
+    border: 1px solid rgb(107, 105, 105);
+    border-radius: 3px;
+}
+
+.number {
+    font-size: 30px;
+    font-weight: 500;
+    color: rgb(28, 28, 31);
+}
+
+.card-name {
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+}
+
+
+.tables {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 20px;
+    align-items: self-start;
+    padding: 0 20px 20px 20px;
+}
+
+.last-appointments,
+.doctor-visiting {
+    min-height: 350px;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgb(68, 68, 68);
+}
+
+.btn {
+    padding: 5px 10px;
+    background: rgb(21, 44, 54);
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+}
+
+table {
+    margin-top: 10px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead td {
+    font-weight: 600;
+    color: rgb(0, 0, 0);
+}
+
+table tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+tbody tr:hover {
+    background: rgb(231, 231, 231);
+    color: rgb(0, 0, 0);
+}
+
+table tbody tr:last-child {
+    border-bottom: none;
+}
+
+td {
+    padding: 9px 5px;
+}
+
+td i {
+    padding: 7px;
+    color: rgb(82, 76, 76);
+    border-radius: 50px;
+}
+
+.last-appointments table tbody td:last-child {
+    white-space: nowrap;
+}
+
+.fa-eye {
+    background: #d3d8d7;
+}
+.fa-eye:hover{
+    cursor: pointer;
+}
+
+.fa-edit {
+    background: #d3d8d7;
+}
+.fa-edit:hover{
+    cursor: pointer;
+}
+
+.fa-trash-alt {
+    background: #d3d8d7;
+}
+.fa-trash-alt:hover{
+    cursor: pointer;
+}
+
+@media(max-width:1090px) {
+    .sidebar {
+        width: 87px;
+    }
+    .main {
+        width: calc(100% - 60px);
+        left: 60px;
+    }
+    .top-bar {
+        width: calc(100% - 60px);
+    }
+}
+@media only screen and (max-width: 550px) {
+    .container {
+      grid-template-columns: 1fr;
+      grid-template-rows: 0.4fr 0.4fr 2.2fr 1.2fr 1.2fr 1.2fr 1fr;
+      grid-template-areas:
+        "nav"
+        "sidebar"
+        "main"
+        "content1";
+    }
+  }
+
+@media(max-width:860px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .tables {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width:530px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+    .last-appointments td:nth-child(3) {
+        display: none;
+    }
+}
+
+@media(max-width:420px) {
+    .last-appointments,
+    .doctor-visiting {
+        font-size: 70%;
+        padding: 10px;
+        min-height: 200px;
+    }
+    .cards,
+    .tables {
+        padding: 10px;
+    }
+    .search input {
+        padding: 0 10px;
+    }
+    .user {
+        width: 40px;
+        height: 40px;
+    }
+}

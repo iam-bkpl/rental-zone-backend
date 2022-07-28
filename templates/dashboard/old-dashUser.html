@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+
+<div class="container-fluid">
+  <div class="row">
+    {% include './sidebar.html' %}
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" id="dashboardDataId">
+
+      <h2>Users</h2>
+      <a href=" {% url 'registerUser' %} " ><button> Create </button> </a>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th scope="col">User Id</th>
+              <th scope="col">Username</th>
+              <th scope="col">Address</th>
+              <th scope="col">User Type</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
+              {% comment %} 
+              <th scope="col">Header</th>
+              <th scope="col">Header</th>
+              <th scope="col">Header</th> {% endcomment %}
+
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for user in users %}
+
+            <tr>
+              <td>{{user.id}} </td>
+              <td>{{user.username}}</td>
+              <td>{{user.customuser.address}}</td>
+              <td>{{user.customuser.user_type}}</td>
+              <td>{{user.customuser.phone}} </td>
+              <td><a href=" {% url 'editProfile' user.id %}  "> <button> update </button></a> </td>
+              <td><a href=" "> <button> delete </button></a> </td>
+            </tr>
+           {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      
+
+
+    </main>
+
+
+  </div>
+</div>
+
+
+
+{% endblock %}
