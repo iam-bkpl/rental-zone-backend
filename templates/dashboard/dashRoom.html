@@ -1,59 +1,51 @@
-{% extends 'base.html' %}
+{% extends './dashBase.html' %}
 {% load static %}
-{% block content%}
+{% block content %}
+<div id="main">
 
-<div class="container-fluid">
-
-{% include './sidebar.html' %}
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" id="dashboardDataId">
-
-      <h2>Rooms</h2>
-      {% comment %} <a> <button>Create</button></a> {% endcomment %}
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">Room Id</th>
-              <th scope="col">Owner</th>
-              <th scope="col">No of Rooms</th>
-              <th scope="col">Room Price</th>
-              <th scope="col">Address</th>
-              <th scope="col">Update</th>
-              <th scope="col">Delete</th>
-              {% comment %} 
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th> {% endcomment %}
-
-            </tr>
-        </thead>
-          <tbody>
-
-            {% for room in rooms %}
-
-            <tr>
-              <td>{{room.id}} </td>
-              <td>{{room.owner}}</td>
-              <td>{{room.number_of_room}} / {{room.available_rooms}} </td>
-              <td>{{room.room_price}}</td>
-              <td>{{room.address}} </td>
-              <td><a href=" {% url 'editRoom' room.id %} "> <button> update </button></a> </td>
-              <td><a href=" {% url 'deleteRoom' room.id %} "> <button> delete </button></a> </td>
-            </tr>
-           {% endfor %}
-          </tbody>
-        </table>
-      </div>
-
-      
-
-
-    </main>
-
-
-  </div>
+  <div class="head">
+      <div class="col-div-6">
+<span style="font-size:30px;cursor:pointer; color: rgb(0, 0, 0);" class="nav"  >&#9776; Rooms</span>
+<span style="font-size:30px;cursor:pointer; color: rgb(0, 0, 0);" class="nav2"  >&#9776; Rooms</span>
 </div>
+<br>
+<br>
+<br><br>
+<div class="col-div-8">
+<div class="box-8">
+<div class="content-box">
+<table class="appointments">
+  <thead>
+      <td>Room Id</td>
+      <td>Owner</td>
+      <td>No of Rooms</td>
+      <td>Room Price</td>
+      <td>Address</td>
+      <td>Update</td>
+      <td>Delete</td>
+  </thead>
+  <tbody>
 
+    {% for room in rooms %}
 
-
-{% endblock %}
+    <tr>
+      <td>{{room.id}} </td>
+      <td>{{room.owner}}</td>
+      <td>{{room.number_of_room}} / {{room.available_rooms}} </td>
+      <td>{{room.room_price}}</td>
+      <td>{{room.address}} </td>
+      <td><a href=" {% url 'editRoom' room.id %} ">  <i class="far fa-edit"></i></a></td>
+      <td><a href=" {% url 'deleteRoom' room.id %} "><i class="far fa-trash-alt"></i></a></td>
+    </tr>
+    </tr>
+   {% endfor %}
+  </tbody>
+          </table>
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>
+      
+        </body>
+        {% endblock content %}  

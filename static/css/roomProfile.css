@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
+
+/* body{
+    line-height: 1.5;
+} */
+.card-wrapper{
+    max-width: 1600px;
+    max-height: fit-content;
+    margin: 0 auto;
+}
+img{
+    width: 50%;
+    display: block;
+}
+.img-display{
+    overflow: hidden;
+}
+.img-showcase{
+    display: flex;
+    width: 100%;
+    transition: all 0.5s ease;
+    border: 3px solid black;
+}
+.img-showcase img{
+    min-width: 100%;
+}
+
+.product-content{
+    padding: 2rem 1rem;
+    font-size: 2em;
+    margin-top: 300px;
+    margin-bottom: 300px;
+}
+
+.room-title{
+  font-size: 3rem;
+  color: #12263a;
+  margin: 0.2rem 0;
+  position: relative;
+  font-weight: 700;
+}
+.product-title::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 80px;
+    background: #12263a;
+}
+.product-link{
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 1.5rem;
+    display: inline-block;
+    margin-bottom: 0.1rem;
+    background: #256eff;
+    color: #fff;
+    padding: 0 0.3rem;
+    transition: all 0.5s ease;
+}
+.product-link:hover{
+    opacity: 0.9;
+}
+.product-rating{
+    color: #ffc107;
+    font-size: large;
+}
+.product-rating span{
+    font-weight: 600;
+    color: #252525;
+}
+.product-price{
+    font-size: 1rem;
+    font-weight: 700;
+}
+.product-price span{
+    font-weight: 400;
+}
+.new-price{
+    font-size: 2em;
+}
+.new-price span{
+    color: #061800;
+    font-size: 1em;
+    color: rgb(51, 51, 51);
+}
+.product-detail h2{
+    text-transform: capitalize;
+    color: #12263a;
+    font-size: small;
+}
+.product-detail p{
+    font-size: 1.6rem;
+   
+}
+.product-detail ul{
+    margin: 1rem 0rem;
+    font-size: 0.9rem;
+}
+.product-detail ul li{
+    margin: 0;
+    font-size: 2.0em;
+    list-style: none;
+    background-size: 18px;
+    padding-left: 1.7rem;
+    margin: 0.4rem 0;
+    font-weight: 600;
+    opacity: 0.9;
+}
+.product-detail ul li span{
+    font-weight: 400;
+}
+.purchase-info{
+    margin: 1.5rem 0;
+}
+.purchase-info .btn{
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    padding: 0.45rem 0.8rem;
+    outline: 0;
+    margin-right: 0.2rem;
+    margin-bottom: 1rem;
+}
+
+.purchase-info .btn{
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+}
+.purchase-info .btn:hover{
+  color: rgb(0, 0, 0)
+}
+.purchase-info .btn:first-of-type{
+    background: #28d445;
+}
+.purchase-info .btn:last-of-type{
+    background: #f1f506;
+}
+.purchase-info .btn:hover{
+    opacity: 0.9;
+}
+.categories .box-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+  gap:1.5rem;
+}
+/* *******************Recently Viewed rooms********* */
+.categories .box-container .box{
+  padding:3rem 2rem;
+  border-radius: .5rem;
+  background:rgb(211, 204, 204);
+  box-shadow: var(--box-shadow);
+  outline:var(--outline);
+  outline-offset: -1rem;
+  text-align: center;
+}
+
+.categories .box-container .box:hover{
+  outline:var(--outline-hover);
+  outline-offset: 0rem;
+}
+
+.categories .box-container .box img{
+  margin:1rem 0;
+  height:15rem;
+}
+
+.categories .box-container .box h3{
+ font-size: 2rem;
+ color:var(--black);
+ line-height: 1.8;
+}
+
+.categories .box-container .box p{
+  font-size: 1.7rem;
+  color:var(--light-color);
+  line-height: 1.8;
+  padding:1rem 0;
+}
+.viewDetainbtn{
+  margin-top: 1rem;
+  display: inline-block;
+  padding:.8rem 3rem;
+  font-size: 1.7rem;
+  border-radius: .5rem;
+  border:.2rem solid var(--black);
+  color:var(--black);
+  cursor: pointer;
+  background: none;
+}
+.viewDetainbtn:hover{
+  background: rgb(15, 11, 63);
+  color:rgb(255, 255, 255);
+}
+
+@media screen and (min-width: 992px){
+    .card{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1.5rem;
+    }
+    .card-wrapper{
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .product-imgs{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .product-content{
+        padding-top: 0;
+    }
+}
