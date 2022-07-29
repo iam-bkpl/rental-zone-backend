@@ -68,7 +68,7 @@
 
               </span></li>
               <li>Area of Rooms: <span> {{room.area_of_room}} </span></li>
-              <li>No of Rooms: <span>{{room.available_rooms}}/{{room.number_of_room}} </span></li>
+              <li>No of Rooms: <span>{{room.number_of_room}} </span></li>
               <li>Floor: <span>{{room.floor}}</span></li>
               <li>Address: <span>{{room.address}}</span></li>
               <li>Contact: <span>{{room.owner.phone}}</span></li>
@@ -84,7 +84,6 @@
             </ul>
           </div>
           {%if user.user_type == 'room_owner' %}
-
             <div
               class="d-flex justify-content-between total font-weight-bold mt-4"
             >
