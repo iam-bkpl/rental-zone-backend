@@ -209,17 +209,17 @@ def updateRoom(request,pk):
                 city = request.POST.get('city')
                 state = request.POST.get('state')
                 country = request.POST.get('country')
-                image1 = request.FILES.get('image1')
+                # image1 = request.FILES.get('image1')
                 image2 = request.FILES.get('image2')
                 image3 = request.FILES.get('image3')
                 image4 = request.FILES.get('image4')
                 description = request.POST.get('description')
                 map_link = request.POST.get('map_link')
                 
-                if int(number_of_room) < int(room.available_rooms):
-                    messages.success(request,"Please Select less than"+str(room.number_of_room))
-                    context= {'room':room}
-                    return render(request,'rooms/roomView.html',context)
+                # if int(number_of_room) < int(room.available_rooms):
+                #     messages.success(request,"Please Select less than"+str(room.number_of_room))
+                #     context= {'room':room}
+                #     return render(request,'rooms/roomView.html',context)
         
                 roomObj.number_of_room = number_of_room
                 roomObj.available_rooms = available_rooms
@@ -231,7 +231,7 @@ def updateRoom(request,pk):
                 roomObj.city = city
                 roomObj.state = state
                 roomObj.country = country
-                roomObj.image1 = image1
+                roomObj.image1 = room.image1
                 roomObj.image2 = image2
                 roomObj.image3 = image3
                 roomObj.image4 = image4
@@ -250,6 +250,7 @@ def updateRoom(request,pk):
                 
                 context = {'room':roomObj}
                 messages.success(request,"Room Updated")
+                # roomView(request,room.id)
                 return render(request,'rooms/roomView.html',context)
             else:
                 room = Room.objects.get(id=pk)
@@ -257,6 +258,7 @@ def updateRoom(request,pk):
                 return render(request,'rooms/roomList.html',context)
         room = Room.objects.get(id=pk)
         context = {'room':room}
+        # roomView(request,room.id)
         return render(request,"rooms/roomView.html",context)
     return render(request,"rooms/roomList.html")
     
