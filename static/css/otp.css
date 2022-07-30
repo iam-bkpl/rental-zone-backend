@@ -1,0 +1,139 @@
+
+/* oTP CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(../images/roomBG.webp);
+  opacity: 1;
+}
+
+.container {
+  border-radius: 2px;
+  box-shadow: 2px 4px 8px 0 rgb(0 0 0 / 10%);
+  border: solid 1px #d6d6d6;
+  position: static;
+  top: 50%;
+  left: 50%;
+  max-width: 276px;
+  width: 100%;
+  border-radius: 6px;
+  padding: 30px;
+  margin-top: 90px;
+  box-shadow: 7px 7px 60px;
+  height: auto;
+  background: url(../images/bg.jpg);
+  opacity: 0.9;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45px;
+  max-width: 200px;
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #fff;
+  border-radius: 5px;
+  margin: 25px 0;
+  background-color: #051a24;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+
+.btn span{
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    max-width: 200px;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 5px;
+    margin: 25px 0;
+    background-color: #051a24;
+    transition: all 0.3s linear;
+    cursor: pointer;
+}
+
+.otp {
+ 
+  border-radius: 10px;
+  box-shadow: 2px 4px 8px 0 rgb(0 0 0 / 10%);
+  border: solid 1px #d6d6d6;
+}
+
+.title {
+  padding: 10px;
+  font-weight: 600;
+  margin-top: 20px;
+  font-size: 24px
+}
+
+.customBtn {
+  border-radius: 0px;
+  padding: 10px;
+}
+
+form input {
+  display: inline-block;
+  width: 100%;
+  height: 50px;
+  text-align: center;
+}
+
+.container form .btnText {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+button i,
+.backBtn i {
+  margin: 0 6px;
+}
+
+.backBtn i {
+  transform: rotate(180deg);
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+}
+
+.buttons button,
+.backBtn {
+  margin-right: 14px;
+}
+
+@media (max-width: 750px) {
+  .container {
+    overflow-y: scroll;
+  }
+
+  .container f::-webkit-scrollbar {
+    display: none;
+  }
+
+  form .fields .input-field {
+    width: calc(100% / 2 - 15px);
+  }
+}
+
+@media (max-width: 550px) {
+  form .fields .input-field {
+    width: 100%;
+  }
+}

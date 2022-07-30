@@ -165,9 +165,9 @@ nav .content .links{
   }
 }
 
-  /*This*/
+/*This*/
 
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 
 * {
     margin: 0;
@@ -185,114 +185,114 @@ body {
     opacity:1;
 }
 
-
 .container {
-    border-radius: 2px;
-    box-shadow: 2px 4px 8px 0 rgb(0 0 0 / 10%);
-    border: solid 1px #d6d6d6;
-    position:static;
-    top: 50%;
-    left: 50%;
-    max-width: 700px;
-    width: 100%;
-    border-radius: 6px;
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rbga(0, 0, 0, 0.3));
-    padding: 30px;
-    margin-top: 90px;
-    box-shadow: 7px 7px 60px;
-    height: auto;
-    background: url(../images/bg.jpg);
-    opacity: 0.9;
+  border-radius: 2px;
+  box-shadow: 2px 4px 8px 0 rgb(0 0 0 / 10%);
+  border: solid 1px #d6d6d6;
+  position:static;
+  top: 50%;
+  left: 50%;
+  max-width: 255px;
+  width: 100%;
+  border-radius: 6px;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rbga(0, 0, 0, 0.3));
+  padding: 30px;
+  margin-top: 90px;
+  box-shadow: 7px 7px 60px;
+  height: 450px;
+  background: url(../images/bg.jpg);
+  opacity: 0.9;
 }
 
+
 .container header {
-    position: relative;
-    font-size: 20px;
-    font-weight: 600;
-    color: black;
+  position: relative;
+  font-size: 20px;
+  font-weight: 600;
+  color: black;
 }
 
 .container header::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    height: 3px;
-    width: 27px;
-    border-radius: 8px;
-    background-color: #fff;
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 3px;
+  width: 27px;
+  border-radius: 8px;
+  background-color: #fff;
 }
 
 .container form {
-    position: relative;
-    margin-top: 16px;
-    min-height: 500px;
-    overflow: hidden;
+  position: relative;
+  margin-top: 16px;
+  min-height: 300px;
+  overflow: hidden;
 }
 
 .container form .form {
-    position: absolute;
+  position: absolute;
 
-    transition: 0.3s ease;
+  transition: 0.3s ease;
 }
 
 .container form .form.second {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(100%);
 }
 
 form.secActive .form.second {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
 }
 
 form.secActive .form.first {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-100%);
 }
 
 .container form .title {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 16px;
-    font-weight: 500;
-    margin: 6px 0;
-    color: black;
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 6px 0;
+  color: black;
 }
 
 .container form .fields {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
+  display: block;
+  align-items: center;
+  justify-content: space-between;
 }
 
 form .fields .input-field {
-    display: flex;
-    width: calc(100% / 3 - 15px);
-    flex-direction: column;
-    margin: 4px 0;
+  display: flex;
+  width: calc(100% / 3 - 15px);
+  flex-direction: column;
+  margin: 4px 0;
 }
 
 .input-field label {
-    font-size: 12px;
-    font-weight: 500;
-    color: black;
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
 }
 
 .input-field input,
 select {
+  width: 193px;
     outline: none;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 200;
     color: black;
     border-radius: 5px;
     border: 1px solid black;
     padding: 0 15px;
-    height: 42px;
+    height: 28px;
     margin: 8px 0;
 }
 
@@ -307,7 +307,7 @@ select {
 }
 
 .input-field input[type="date"]:valid {
-    color: black;
+  color: black;
 }
 
 .container form button,
@@ -329,10 +329,9 @@ select {
 }
 
 .container form .btnText {
-    font-size: 14px;
-    font-weight: 400;
+  font-size: 14px;
+  font-weight: 400;
 }
-
 
 form button i,
 form .backBtn i {

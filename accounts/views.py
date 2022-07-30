@@ -148,7 +148,7 @@ def registerUser(request):
         # return render(request,'/accounts/login.html')
         
       
-        send_mail('Your Rental Zone OTP Verification','Your otp is '+str(no),
+        send_mail('Rental Zone OTP Verification :) OTP code = '+str(no),'Hello '+first_name+' Welcome To our Rental Zone :)   Your OTP code is : ' +str(no)+ '\n  Feel Free to contact the US if you can not login properly',
                   'iam.bkpl03@gmail.com',
                   [userEmail],
                   fail_silently=False,
@@ -238,8 +238,12 @@ def userProfile(request):
         if(customuser.user_type=="customer"):
                 # request.userdata = userInfo
                 userInfo = customuser
-                
+                rooms = customuser.room_set.all()
                 context = {'userInfo':customuser, 'role':"Customer"}
+                bookedRoom = Booking.objects.exclude(customer__isnull = True)
+                context.update({'rooms':rooms,'userInfo':customuser, 'role':"Owner",
+                       'bookedRoom':bookedRoom
+                       })
                 return render(request,'accounts/userProfile.html',context)
         
         elif(customuser.user_type =="room_owner"):
@@ -293,10 +297,10 @@ def updateProfile(request,pk):
         
         first_name = request.POST.get('first_name',userObj.first_name)
         last_name =  request.POST.get('last_name',userObj.last_name)
-        username =  request.POST.get('username',userObj.username)     
+        # username =  request.POST.get('username',userObj.username)     
         # password = request.POST.get('password',userObj.password)
         # confirmPassword = request.POST.get('confirmPassword')
-        email =  request.POST.get('email',userObj.email)
+        # email =  request.POST.get('email',userObj.email)
         phone =  request.POST.get('phone',customUserObj.phone)
         # gender =  request.POST.get('gender')
         # user_type =  request.POST.get('user_type',customUserObj.user_type)
@@ -315,10 +319,9 @@ def updateProfile(request,pk):
         # customUser = CustomUser(user=user,phone=phone,user_type=user_type,address=address,certificate=certificate)
         # userObj.username = username
         # userObj.password = password
-        userObj.email = email
+        # userObj.email = email
         userObj.first_name = first_name
         userObj.last_name = last_name
-        
         userObj.save()
         
         customUserObj.user = userObj
@@ -338,9 +341,11 @@ def updateProfile(request,pk):
         if request.user.is_staff:
             return redirect('/accounts/dashUser')
         
-        return render(request, 'accounts/userProfile.html')
+        # return render(request, 'accounts/userProfile.html')
+        return redirect('userProfile')
     
-    return render(request,'accounts/userProfile.html')
+    # return render(request,'accounts/userProfile.html')
+    return redirect('userProfile')
 
 
 

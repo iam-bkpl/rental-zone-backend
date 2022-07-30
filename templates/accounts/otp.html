@@ -1,20 +1,92 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
-<form class="container m-3 p-3" action=" {% url 'otp' %} " method="POST">
-  {% csrf_token %}
-  <div class="col-lg-12 col-md-12 col-sm-12">
-    {% if messages %} {% for message in messages %}{{message}} {% endfor %} {% endif %}
-</div>
-  <!-- Email input -->
-  <div class="form-outline mb-4">
-    <input type="number" id="form2Example1" class="form-control" name="otp" placeholder="otp" />
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" -->
+
+  <!----======== CSS ======== -->
+  <link rel="stylesheet" href="{% static 'css/otp.css' %}">
+  <link rel="stylesheet" href=" {% static 'css/style.css' %} ">
+  <title>OTP</title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" /> 
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/f815347d2a.js" crossorigin="anonymous"></script> 
+
+</head>
+
+<body>
+  <nav>
+    <input type="checkbox" id="show-menu">
+    <label for="show-menu" class="menu-icon"><i class="fas fa-bars"></i></label>
+    <div class="content">
+      <div class="logo"><a href="#">Rental&nbsp;Zone</a></div>
+      <ul class="links">
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        <li><a href="/">Home</a></li>
+        <li><a href="#aboutUs">About</a></li>
+        <li><a href="{% url 'roomList' %}">Rooms</a></li>
+        <li><a href="#contactUs">Contact</a></li>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        
+        {% if request.user.is_staff %}
+        <li><a href="/accounts/dashboard" class="navButton" >Dashboard</a></li>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <li><a href=" {% url 'logout' %} " class="navButton" >Logout</a></li>
+        <li><a href="/accounts/userProfile" class="navButton" >Profile</a></li>
+        {% else %}  
+        <li><a href="{% url 'login' %}" class="navButton" >Login</a></li>
+        <li><a href="/accounts/register" class="navButton" >Register</a></li>
+        {% endif%}
+    </div>
+  </nav>
+
+  <!-- OPT DIV -->
+  <div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-4 text-center">
+          <div class="row">
+            <div class="col-sm-12 mt-5 bgWhite">
+              <div class="title">
+                Verify OTP
+              </div>
+              
+              <form action=" {% url 'otp' %} " method="POST" class="mt-5">
+                {% csrf_token %}
+            <!--  <input name="otp" class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(1)' maxlength=1 >
+                <input name="otp" class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(2)' maxlength=1 >
+                <input name="otp" class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(3)' maxlength=1 >
+                <input name="otp" class="otp" type="text" oninput='digitValidate(this)'onkeyup='tabChange(4)' maxlength=1 > -->
+                <input type="number" name="otp" placeholder="Enter OTP Number"  >
+              </form>
+              <div>
+              <button class="btn" type="submit">Verify</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
   </div>
+</body>
+<script>
+  let digitValidate = function(ele){
+  console.log(ele.value);
+  ele.value = ele.value.replace(/[^0-9]/g,'');
+}
 
-  
-  <!-- Submit button -->
-  <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+let tabChange = function(val){
+    let ele = document.querySelectorAll('input');
+    if(ele[val-1].value != ''){
+      ele[val].focus()
+    }else if(ele[val-1].value == ''){
+      ele[val-2].focus()
+    }   
+ }</script>
 
-  </div>
-</form>
-{% endblock %}
+</html>

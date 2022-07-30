@@ -1,195 +1,168 @@
-{% extends 'base.html' %}
+
 {% load static %}
+<!DOCTYPE html>
+<html>
 
-{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rento Adminstrator</title>
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,800,900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f815347d2a.js" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="final dashboard/static/css/owner_dash.css"> -->
+    <link rel="stylesheet" href="{% static 'css/owner_dash.css' %}">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
 
-<section style="background-color: #eee;">
-    <div class="container py-5">
-      <div class="row">
-        <div class="col">
-          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-            <ol class="breadcrumb mb-0">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item"><a href="#">User</a></li>
-              <li class="breadcrumb-item active" aria-current="page">User Profile</li>
-            </ol>
-          </nav>
-        </div>
-      </div>
-  
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="card mb-4">
-            <div class="card-body text-center">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
-              class="rounded-circle img-fluid" style="width: 150px;">
-              {% comment %} {% if userInfo.certificate.url %}
-              <img src="{{userInfo.certificate.url}} " alt="avatar"
-              class="rounded-circle img-fluid" style="width: 150px;">
-             {% else %}
-
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
-                class="rounded-circle img-fluid" style="width: 150px;">
-                {% endif %} {% endcomment %}
-              <h5 class="my-3">{{request.user.first_name}} </h5>
-              <p class="text-muted mb-1"> {{role}}</p>
-              <div class="d-flex justify-content-center mb-2">
-                <a href="/accounts/editProfile/{{request.user.id}}">
-                <button type="button" class="btn btn-primary">Update Profile</button>
-                </a>
-                <a href="/accounts/deleteProfile/{{request.user.id}}">  <button type="button" class="btn btn-primary">Delete Profile</button></a>
-               {%if userInfo.user_type == 'room_owner' %}
-                <a href="{% url 'addRoom' %} "> <button type="button" class="btn btn-outline-primary ms-1"> Add Room </button></a>
-              {% endif %}
-              </div>
+<body>
+    <div class="container">
+        <nav class="info_owner">
+            <div class="wrapper">
+                {% include 'nav.html' %}
             </div>
-          </div>
+        </nav>
+        <main>
+            <label class="infoOwner"><b id="infoOwner">User Information</b></label><br>
+            <table class=table-content>
+                <tr>
+                    <th>Full Name:</th>
+                    <td>{{request.user.first_name}} {{request.user.last_name}}</td>
+                </tr>
+                <tr>
+                    <th>Email:</th>
+                    <td>{{request.user.email}}</td>
+                </tr>
+                <tr>
+                    <th>Phone:</th>
+                    <td>{{userInfo.phone}}</td>
+                </tr>
+                <tr>
+                    <th>Role:</th>
+                    <td>{{userInfo.user_type}}</td>
+                </tr>
+                <tr>
+                    <th>Address:</th>
+                    <td>{{userInfo.address}}</td>
+                </tr>
+            </table>
 
 
-          <div class="card mb-4 mb-lg-0">
-            <div class="card-body p-0">
-              <ul class="list-group list-group-flush rounded-3">
-                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <i class="fas fa-globe fa-lg text-warning"></i>
-                  <p class="mb-0">{{roomInfo.state}} </p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <i class="fab fa-github fa-lg" style="color: #333333;"></i>
-                  <p class="mb-0">mdbootstrap</p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-                  <p class="mb-0">@mdbootstrap</p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
-                  <p class="mb-0">mdbootstrap</p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-                  <p class="mb-0">mdbootstrap</p>
-                </li>
-              </ul>
+        </main>
+        <div id="sidebar">
+            <label class="info_owner"></label> <br>
+            <div class="image">
+                <img src="{{userInfo.certificate.url}}" class="image-owner" alt="owner image">
             </div>
-          </div>
-        </div>
-
-        
-        <div class="col-lg-8">
-          <div class="card mb-4">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Full Name</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{request.user.first_name}} {{request.user.last_name}} </p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Email</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{request.user.email}}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Phone</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{userInfo.phone}}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Role</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{userInfo.user_type}}</p>
-                </div>
-              </div>
-              <hr>  
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Address</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{userInfo.address}}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          {% if userInfo.user_type == 'room_owner' %}
-          <table class="table align-middle mb-0 bg-white">
-            <thead class="bg-light">
-              <tr>
-                <th>Room Address</th>
-                <th>Customer</th>
-                <th>Status</th>
-                <th>Position</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-
-
-              {% for room in rooms %}
-              <tr>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img
-                        src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                        alt=""
-                        style="width: 45px; height: 45px"
-                        class="rounded-circle"
-                        />
-                    <div class="ms-3">
-                      <p class="fw-bold mb-1">{{room.address}}</p>
-                      <p class="text-muted mb-0">{{room.city}}</p>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                {% for bookedRoom in room.room_booking.all %}
-                  <p class="fw-normal mb-1">{{bookedRoom.customer}}</p>
-               {% endfor %}
-                </td>
-                <td>
-                  {% for bookedRoom in room.room_booking.all %}
-
-                 <a href="/editBookStatus/{{bookedRoom.id}}"> <p class="fw-normal mb-1">{{bookedRoom.book_status}}</p></a>
-               {% endfor %}
-                </td>
-                <td>
-                {% for bookedRoom in room.room_booking.all %}
-
-                  <p class="fw-normal mb-1">{{bookedRoom.number_of_rooms}}</p>
-               {% endfor %}
-
-                </td>
-                <td>
-                  <button type="button" class="btn btn-link btn-sm btn-rounded">
-                    Edit
-                  </button>
-                </td>
-              </tr>
-
-
-{% endfor %}
-
-
-            </tbody>
-          </table>
-
-{% endif %}
+            <p id="Namee">{{request.user.username}}</p>
+            <p id="userType">( {{userInfo.user_type}} )</p>
+            {%if userInfo.user_type == 'room_owner' %}
+            <a href="{% url 'addRoom' %} "> <button type="submit" class="btn" id="addbtn">ADD ROOM</button></a> <br>
+            {% endif %}
+            <a href="/accounts/editProfile/{{request.user.id}}"> <button type="submit" class="btn" id="updatebtn">UPDATE PROFILE</button></a><br>
+            <a href="/accounts/deleteProfile/{{request.user.id}}">
+            <button type="submit" class="btn" id="deletebtn">DELETE PROFILE</button>
+        </a>
 
         </div>
-      </div>
+        {% if userInfo.user_type == 'room_owner' %}
+        <div id="content1">
+            <table class="table-content2">
+                <tr>
+                    <th>Room ID</th>
+                    <th>NO of Rooms</th>
+                    <th>Address</th>
+                    <th>Customer Info</th>
+                    <th>Status</th>
+                    <th>Update Status</th>              
+                </tr>
+                {% for room in rooms %}
+                <tr>
+                    <td>{{room.id}}</td>
+                    <td>{{room.number_of_room}} </td>
+                    <td>{{room.address}}</td>
+                    <td>
+                        {% if room.room_booking.all %}
+                        {% for bookedRoom in room.room_booking.all %}
+                        <p>{{bookedRoom.customer}}</p>
+                        {% endfor %}
+                        {% else %}
+                        <p>-</p>
+                        {% endif %}
+                    </td>
+                    <td>
+                    {% for bookedRoom in room.room_booking.all %}
+                    <p> {{bookedRoom.book_status}}</p>
+                    {% endfor %}
+                    </td>
+                    {% comment %} {% for bookedRoom in room.room_booking.all %} {% endcomment %}
+
+                    <td>
+                        {% for bookedRoom in room.room_booking.all %}
+                            <p> <a href="/editBookStatus/{{bookedRoom.id}}">
+                                <i class="fa-regular fa-pen-to-square">
+                                </i>
+                            </a>
+                        </p>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+
+        {% if userInfo.user_type == 'customer' %}
+        <div id="content1">
+            <table class="table-content2">
+                <tr>
+                    <th>Room ID</th>
+                    <th>NO of Rooms</th>
+                    <th>Address</th>
+                    <th>Customer Info</th>
+                    <th>Status</th>
+                    <th>Update Status</th>              
+                </tr>
+                {% for room in rooms %}
+                <tr>
+                    <td>{{room.id}}</td>
+                    <td>{{room.number_of_room}} </td>
+                    <td>{{room.address}}</td>
+                    <td>
+                        {% if room.room_booking.all %}
+                        {% for bookedRoom in room.room_booking.all %}
+                        <p>{{bookedRoom.customer}}</p>
+                        {% endfor %}
+                        {% else %}
+                        <p>-</p>
+                        {% endif %}
+                    </td>
+                    <td>
+                    {% for bookedRoom in room.room_booking.all %}
+                    <p> {{bookedRoom.book_status}}</p>
+                    {% endfor %}
+                    </td>
+                    {% comment %} {% for bookedRoom in room.room_booking.all %} {% endcomment %}
+
+                    <td>
+                        {% for bookedRoom in room.room_booking.all %}
+                            <p> <a href="/editBookStatus/{{bookedRoom.id}}">
+                                <i class="fa-regular fa-pen-to-square">
+                                </i>
+                            </a>
+                        </p>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+
+
     </div>
-  </section>
-{% endblock %}
+</body>
+
+</html>

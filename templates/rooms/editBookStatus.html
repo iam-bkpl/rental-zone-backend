@@ -1,15 +1,72 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
-<form method="POST" action="/updateBookStatus/{{bookedRoom.id}}/">
-    {% csrf_token %}
-    <h2>User :{{bookedRoom.customer}} </h2>
-<select name="book_status">
-    <option selected  value="{{bookedRoom.book_status}}">{{bookedRoom.book_status}}</option>
-    <option value="pending">Pending</option>
-    <option value="booked">Booked</option>
-    <option value="cancel">Cancel</option>
-</select>
-<button type="submit" >Submit</button>
-</form>
-{% endblock %}
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" -->
+
+  <!----======== CSS ======== -->
+  
+  <link rel="stylesheet" href="{% static 'css/editBookStatus.css' %}">
+
+  <!----===== Iconscout CSS ===== -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+  <title>Responsive Regrisation Form </title>
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" /> 
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/f815347d2a.js" crossorigin="anonymous"></script> 
+  <script src="../static/js/register.js">
+  </script>
+
+</head>
+
+<body>
+<!-- header  -->
+
+<div class="wrapper">
+  {% include 'nav.html' %}
+  </nav>
+</div>
+<!-- header ends -->
+
+  <div class="container">
+    <h1>Update</h1>
+    <span id="result"></span>
+    <br>
+    <form method="POST" action="/updateBookStatus/{{bookedRoom.id}}/" onsubmit="return validateForm()">
+      {% csrf_token %}
+      <div class="form first">
+        <div class="details personal">
+          <div class="fields">
+            <div class="input-field">
+              <label >Customer:</label>
+              <input aria-required="false" disabled="" id="uName" placeholder="Name" type="text" value="{{bookedRoom.customer}}">
+            </div>
+            <div class="input-field">
+              <label >Rooms:</label>
+              <input aria-required="false" disabled="" id="uName" placeholder="Name" type="text" value="{{bookedRoom.number_of_rooms}}">
+            </div>
+            <div class="input-field">
+              <label>Staus</label>
+              <select name="book_status" id="status">
+                <option value="stat" selected>Select Status</option>
+                <option value="booked">Booked</option>
+                <option value="pending">Pending</option>
+                <option value="cancel">Cancel</option>
+              </select>
+            </div>
+        <button type="submit" class="nextBtn">
+          <span type="submit" class="btnText" id="btn">Update</span>
+        </button>
+      </div>
+  </div>
+  </form>
+  </div>
+</body>
+
+</html>
