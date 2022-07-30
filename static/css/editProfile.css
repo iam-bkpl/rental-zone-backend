@@ -191,16 +191,16 @@ body {
     box-shadow: 2px 4px 8px 0 rgb(0 0 0 / 10%);
     border: solid 1px #d6d6d6;
     position:static;
-    top: 50%;
+    top: 50px;
     left: 50%;
-    max-width: 700px;
+    max-width: 290px;
     width: 100%;
     border-radius: 6px;
     background: linear-gradient(rgba(0, 0, 0, 0.3), rbga(0, 0, 0, 0.3));
-    padding: 30px;
+    padding: 20px;
     margin-top: 90px;
     box-shadow: 7px 7px 60px;
-    height: auto;
+    height: 540px;
     background: url(../images/bg.jpg);
     opacity: 0.9;
 }
@@ -264,17 +264,17 @@ form.secActive .form.first {
 }
 
 .container form .fields {
-    display: flex;
+
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
 }
 
 form .fields .input-field {
-    display: flex;
+    display: block;
     width: calc(100% / 3 - 15px);
     flex-direction: column;
-    margin: 4px 0;
+    margin: -6px 0;
 }
 
 .input-field label {
@@ -283,19 +283,17 @@ form .fields .input-field {
     color: black;
 }
 
-.input-field input,
-select {
-    outline: none;
-    font-size: 14px;
-    font-weight: 400;
-    color: black;
-    border-radius: 5px;
-    border: 1px solid black;
-    padding: 0 15px;
-    height: 42px;
-    margin: 8px 0;
+.input-field input, select {
+  outline: none;
+  font-size: 14px;
+  font-weight: 400;
+  color: black;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 0px 25px;
+  height: 42px;
+  margin: 0px 0px;
 }
-
 .input-field input :focus,
 .input-field select:focus {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.13);
@@ -316,7 +314,7 @@ select {
     align-items: center;
     justify-content: center;
     height: 45px;
-    max-width: 200px;
+    max-width: 228px;
     width: 100%;
     border: none;
     outline: none;

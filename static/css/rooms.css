@@ -48,7 +48,7 @@
     background: none;
 }
 .viewDetainbtn:hover{
-    background: rgb(15, 11, 63);
+    background: #051a24;
     color:rgb(255, 255, 255);
 }
 /* *************Media Queries******** */

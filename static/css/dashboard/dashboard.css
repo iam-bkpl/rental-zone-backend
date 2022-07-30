@@ -14,11 +14,14 @@ body{
 	clear: both;
 }
 .logo{
-	margin: 0px;
-	margin-left: 28px;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 30px;
+	   margin: 0px;
+	   margin-left: 28px;
+     font-weight: bold;
+     color: white;
+     margin-bottom: 20px;
+     
+    font-size: 30px;
+    
 }
 .logo span{
 	color: #ffffff;
@@ -120,6 +123,7 @@ body{
 }
 .content-box{
 	padding: 20px;
+  background-color:var(--bluish2);
 }
 .content-box p{
 	margin: 0px;
@@ -137,9 +141,15 @@ body{
 	cursor: pointer;
   background-color: rgb(138, 148, 181);
 }
-.box-8, .box-4{
+.box-4{
 	width: 135%;
 	background-color:var(--bluish2);
+	height: 330px;
+	
+}
+.box-8{
+	width: 135%;
+	background-color:var(--white);
 	height: 330px;
 	
 }
@@ -227,14 +237,4 @@ td i {
 }
 
  
-  .cards,
-  .tables {
-      padding: 10px;
-  }
-  .search input {
-      padding: 0 10px;
-  }
-  .user {
-      width: 40px;
-      height: 40px;
-  }
+ 

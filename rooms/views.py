@@ -149,7 +149,7 @@ def addRoom(request):
                 description = request.POST.get('description')
                 map_link = request.POST.get('map_link')
                 
-                newRoomObj = Room(owner=user,available_rooms= available_rooms , number_of_room=number_of_room,room_price=room_price,area_of_room=area_of_room,floor=floor,parking=parking,address=address,city=city,state=state,country=country,image1=image1,image2=image2,image3=image3,image4=image4,description=description,map_link=map_link)
+                newRoomObj = Room(owner=user,available_rooms= number_of_room , number_of_room=number_of_room,room_price=room_price,area_of_room=area_of_room,floor=floor,parking=parking,address=address,city=city,state=state,country=country,image1=image1,image2=image2,image3=image3,image4=image4,description=description,map_link=map_link)
 
                 newRoomObj.save()
                 messages.success(request,"Home Saved Successfully")
@@ -275,24 +275,23 @@ def bookRoom(request,pk):
         # book_date = request.POST.get('book_date')
         checkin_date = request.POST.get('checkin_date')
         # checkout_date = request.POST.get('checkout_date')
-        payment_method = request.POST.get('payment_method')
-        amount = request.POST.get('amount')
+        # payment_method = request.POST.get('payment_method')
+        payment_method = "offline"
+        amount = room.room_price
         paid = request.POST.get('paid')
-        
-        
-        
+  
         if paid == 'paid':
             paid = True
         else:
             paid = False
             
-        if int(number_of_rooms) > room.available_rooms:
-            messages.success(request,"Please Select less than"+str(room.available_rooms))
-            context= {'room':room}
-            return render(request,'rooms/bookRoom.html',context)
-        else:
-            room.available_rooms = int(room.available_rooms) -int(number_of_rooms)
-            room.save()
+        # if int(number_of_rooms) > room.available_rooms:
+        #     messages.success(request,"Please Select less than"+str(room.available_rooms))
+        #     context= {'room':room}
+        #     return render(request,'rooms/bookRoom.html',context)
+        # else:
+        #     room.available_rooms = int(room.available_rooms) -int(number_of_rooms)
+        #     room.save()
             
         if checkin_date < str(now):
             messages.success(request,"Enter a valid Date")

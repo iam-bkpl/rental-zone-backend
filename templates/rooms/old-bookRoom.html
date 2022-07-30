@@ -12,7 +12,7 @@
               <h2 class="text-uppercase text-center mb-5">Book Room</h2>
               Number of room = {{room.available_rooms}}
               <form method="POST" action="" >
-                {% csrf_token %}
+                {% csrf_token %}  
                 <div class="form-outline mb-4">
                   <input type="number" name="number_of_rooms" placeholder="number_of_rooms" id="form3Example1cg" class="form-control nameform-control-lg" />
                 </div>

@@ -73,33 +73,33 @@
           <span class="title"></span>
           <div class="fields">
             <div class="input-field">
-              <label>No of Rooms:</label><br>
-              <input type="number" name="number_of_rooms" id="rnum" placeholder="Enter number of rooms">
+              <label>No of Rooms: {{room.number_of_room}}</label><br>
+              <input type="number" name="number_of_rooms" id="rnum" max placeholder="Enter number of rooms">
             </div>
-            <div class="input-field">
+            {% comment %} <div class="input-field">
               <label>Amount</label><br>
               <input type="number" name="amount" id="rnum" placeholder="Enter amount paid">
-            </div>
+            </div> {% endcomment %}
             <div class="input-field">
               <label>Checkin Date</label><br>
               <input type="date" name="checkin_date" id="date" placeholder="Enter valid date">
             </div>
-            <div class="input-field">
+            {% comment %} <div class="input-field">
                 <label>Payment Method</label>
                 <select name="method" id="method" name="user_type">
                     <option selected default value="none">Select Method</option>
                     <option value="online" >Online</option>
                     <option value="offline">Offline</option>
                   </select>
-            </div>
-            <div class="check">
+            </div> {% endcomment %}
+            {% comment %} <div class="check">
                 <input type="checkbox">
                 <label>paid</label>
-              </div>
+              </div> {% endcomment %}
 
         <button type="submit" class="nextBtn">
           <span type="submit" class="btnText" id="btn">Book</span>
-          <button type="submit" value="Book">
+          {% comment %} <button type="submit" value="Book"> {% endcomment %}
           </button>
         </button>
       </div>
