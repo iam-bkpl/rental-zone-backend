@@ -181,7 +181,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url(../images/roomBG.webp);
+    background-image: url(../assets/roomBG.webp);
     opacity:1;
 }
 
@@ -193,7 +193,7 @@ body {
     position:static;
     top: 50px;
     left: 50%;
-    max-width: 290px;
+    max-width: 381px;
     width: 100%;
     border-radius: 6px;
     background: linear-gradient(rgba(0, 0, 0, 0.3), rbga(0, 0, 0, 0.3));
@@ -201,7 +201,7 @@ body {
     margin-top: 90px;
     box-shadow: 7px 7px 60px;
     height: 540px;
-    background: url(../images/bg.jpg);
+    background: url(../assets/bg1.jpg);
     opacity: 0.9;
 }
 

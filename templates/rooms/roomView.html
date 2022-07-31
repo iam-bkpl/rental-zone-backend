@@ -18,6 +18,26 @@
   <link rel="stylesheet" href="{% static 'css/footer.css' %}">
   <link rel="stylesheet" href=" {% static 'css/roomProfile.css' %} ">
   <script src="js/script.js"></script>
+  <style>
+    .commentContainer{
+      height: auto;
+      border-radius: 2px;
+      box-shadow: 2px 4px 8px 0 rgb(0 0 0 / 10%);
+      border: solid 1px #d6d6d6;
+      padding-left:10px;
+      padding-right:20px;
+    }
+    .commentContainer .personalComment{
+      background:rgb(226, 226, 226);
+      border-bottom:1px solid rgb(111, 110, 110);;
+      border-radius:1px;
+      font-size:1.3em;
+      padding:3px;
+    }
+    .commentContainer .personalComment span{
+      text-transform:lowercase;
+    }
+  </style>
 </head>
 
 <body>
@@ -39,9 +59,22 @@
           <div class="img-display">
             <div class="img-showcase">
               <img src="{{room.image1.url}}" alt="shoe image">
-            </div>
+            </div><br><br>
+          
+          </div>
+          {% comment %} **********Comment Container*********** {% endcomment %}
+          <div class="commentContainer" style="border: 2px solid rgb(207, 206, 206);">
+            
+            <h2>Comments:</h2>
+            {% for review in reviews %}
+            <div class="personalComment">
+              <label class="commentLabel"><b> {{review.user}}<span style="float:right">{{review.date}} </span> </b>
+              <p class="commentBox">{{review.text}}</p>
+              </div>
+              {% endfor %}
           </div>
         </div>
+        
 
         <div class="product-content">
           <h3 class="room-title">{{room.city}}</h3>
@@ -73,16 +106,12 @@
               <li>Address: <span>{{room.address}}</span></li>
               <li>Contact: <span>{{room.owner.phone}}</span></li>
               
-              <li>Rating: <span><b>{{reviews_avg.rate__avg}}</b>({{reviews_count}} )
-                 <div class="product-rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-              </div></span></li>
+              <li>Rating: <span><b>{{reviews_avg}}</b>({{reviews_counts}} )
             </ul>
           </div>
+           
+
+
           {%if user.user_type == 'room_owner' %}
             <div
               class="d-flex justify-content-between total font-weight-bold mt-4"
@@ -146,54 +175,7 @@
 
   <!-- footer section starts  -->
   <br><br><br><br>
-  <footer class="footer-distributed" id="aboutUs">
-
-    <div class="footer-left">
-      <h3>Rental<span>Zone</span></h3>
-
-      <p class="footer-links">
-        <a href="#">Home</a>
-        |
-        <a href="#">About</a>
-        |
-        <a href="#">Support us</a>
-      </p>
-
-      <p class="footer-company-name">Copyright © All rights reserved</p>
-    </div>
-
-    <div class="footer-center" id="contactUs">
-      <h3>Get in touch</h3>
-      <div>
-        <i class="fa fa-map-marker"></i>
-        <p><span>Baneshwor</span>
-          Kathmandu</p>
-      </div>
-
-      <div>
-        <i class="fa fa-phone"></i>
-        <p>+977 982158**27</p>
-      </div>
-      <div>
-        <i class="fa fa-envelope"></i>
-        <p><a href="">aba@gmail.com</a></p>
-      </div>
-    </div>
-    <div class="footer-right">
-      <p class="footer-company-about">
-        <span>About us</span>
-        <strong>Rental Zone</strong>is a platform to find room and flat.
-      </p>
-      <div class="footer-icons">
-        <a href="#"><i class="fa fa-facebook"></i></a>
-        <a href="#"><i class="fa fa-instagram"></i></a>
-        <a href="#"><i class="fa fa-linkedin"></i></a>
-        <a href="#"><i class="fa fa-twitter"></i></a>
-        <a href="#"><i class="fa fa-youtube"></i></a>
-      </div>
-    </div>
-  </footer>
-
+{% include 'footer.html' %}
   <!-- footer section ends -->
 
 

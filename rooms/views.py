@@ -59,7 +59,7 @@ def roomView(request,pk):
     
     recently_viewed_rooms = None
     session = request.session
-    context = {'reviews':reviews,'reviews_avg':reviews_avg,'reviews_count':reviews_count}
+    context.update({'reviews':reviews,'reviews_avg':reviews_avg,'reviews_count':reviews_count})
     
     if( 'recently_viewed' in session ):
         if room.id in session['recently_viewed']:
