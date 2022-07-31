@@ -55,7 +55,7 @@
     <div class="container">
         <header>Add Room</header>
 
-        <form action="#" method="post" id="registration">
+        <form enctype="multipart/form-data" method="post" id="registration">
             {% csrf_token %}
             <div class="form first">
                 <div class="details personal">
@@ -116,7 +116,7 @@
 
                          <div class="input-field">
                             <label>Room Images</label>
-                            <input type="file" id="file" name="image1" multiple>
+                            <input type="file" id="file" name="image1" >
                             <input type="file" id="file" name="image2" multiple>
                             <input type="file" id="file" name="image3" multiple>
                             

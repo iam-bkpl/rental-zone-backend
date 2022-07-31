@@ -40,7 +40,7 @@
   {% endfor %}
     </span>
     <br>
-    <form action="{% url 'register' %}" method="post" onsubmit="return validateForm()">
+    <form  enctype="multipart/form-data" action="{% url 'register' %}" method="post" onsubmit="return validateForm()">
       {% csrf_token %}
       <div class="form first">
         <div class="details personal">
