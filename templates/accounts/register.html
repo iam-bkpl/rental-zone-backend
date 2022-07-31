@@ -23,48 +23,24 @@
   <script src="https://kit.fontawesome.com/f815347d2a.js" crossorigin="anonymous"></script> 
   <script src="{% static 'js/register.js' %}">
   </script>
-
 </head>
-
 <body>
 <!-- header  -->
 
 <div class="wrapper">
-  <nav>
-    <input type="checkbox" id="show-menu">
-    <label for="show-menu" class="menu-icon"><i class="fas fa-bars"></i></label>
-    <div class="content">
-      <div class="logo"><a href="#">Rental&nbsp;Zone</a></div>
-      <ul class="links">
-        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-        <li><a href="/">Home</a></li>
-        <li><a href="#aboutUs">About</a></li>
-        <li><a href="{% url 'roomList' %}">Rooms</a></li>
-        <li><a href="#contactUs">Contact</a></li>
-        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-        
-        {% if request.user.is_staff %}
-        <li><a href="/accounts/dashboard" class="navButton" >Dashboard</a></li>
-        {% endif %}
-        {% if request.user.is_authenticated %}
-        <li><a href="/accounts/logout" class="navButton" >Logout</a></li>
-        <li><a href="/accounts/userProfile" class="navButton" >Profile</a></li>
-        {% else %}  
-        <li><a href="{% url 'login' %}" class="navButton" >Login</a></li>
-        <li><a href="/accounts/register" class="navButton" >Register</a></li>
-        {% endif%}
-    </div>
-  </nav>
-
+  {% include 'nav.html' %}
 </div>
+{% include 'pop.html' %}
 <!-- header ends -->
-
   <div class="container">
     <h1>Registration Form</h1>
-    <span id="result"></span>
+    <span id="result" style="color:red">
+  {% for message in messages %}
+  ** {{message}} **
+  {% endfor %}
+    </span>
     <br>
-    <form action="{% url 'registerUser' %}" method="post" onsubmit="return validateForm()">
+    <form action="{% url 'register' %}" method="post" onsubmit="return validateForm()">
       {% csrf_token %}
       <div class="form first">
         <div class="details personal">
@@ -129,14 +105,10 @@
           </div>
         </div>
 
-
-        <button class="nextBtn">
-          <span type="submit" class="btnText" id="btn">Submit</span>
-        </button>
+        <button type="Submit">Register</button>
       </div>
   </div>
   </form>
   </div>
 </body>
-
 </html>

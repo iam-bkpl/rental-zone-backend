@@ -143,8 +143,6 @@
                     <p> {{bookedRoom.book_status}}</p>
                     {% endfor %}
                     </td>
-                    {% comment %} {% for bookedRoom in room.room_booking.all %} {% endcomment %}
-
                     <td>
                         {% for bookedRoom in room.room_booking.all %}
                             <p> <a href="/editBookStatus/{{bookedRoom.id}}">
@@ -159,7 +157,6 @@
         </div>
         {% endfor %}
         {% endif %}
-
 
 
     </div>
