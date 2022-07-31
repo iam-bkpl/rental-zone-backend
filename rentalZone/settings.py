@@ -129,8 +129,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
@@ -151,16 +151,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ROOT_URLCONF = 'rentalZone.urls'
 # AUTH_USER_MODEL = 'accounts.CustomUser'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-DEFAULT_FROM_EMAIL = 'iam.bkpl03@gmail.com'
-SERVER_EMAIL = 'iam.bkpl03@gmail.com'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'iam.bkpl03@gmail.com'
-EMAIL_HOST_PASSWORD = 'ikpoyldyxovqffpq'
-EMAIL_USE_TLS= True
-EMAIL_USE_SSL = False
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# DEFAULT_FROM_EMAIL = 'iam.bkpl03@gmail.com'
+# SERVER_EMAIL = 'iam.bkpl03@gmail.com'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'iam.bkpl03@gmail.com'
+# EMAIL_HOST_PASSWORD = 'ikpoyldyxovqffpq'
+# EMAIL_USE_TLS= True
+# EMAIL_USE_SSL = False
 
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '86483df4c267ef'
+EMAIL_HOST_PASSWORD = '04f5ac570dd492'
+EMAIL_PORT = '2525'
 
 
 

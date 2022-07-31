@@ -26,7 +26,7 @@ class CustomUser(models.Model):
     user_type = models.CharField(max_length=15,null=True,blank=True)
     address =  models.CharField(max_length=30, null=True,blank=True)
     # verified = models.BooleanField(default=False,null=True,blank=True)
-    certificate = models.ImageField(upload_to='certificate', null=True,blank=True) 
+    certificate = models.ImageField(upload_to='photos/', null=True,blank=True) 
     
     def __str__(self):
         return self.user.username
