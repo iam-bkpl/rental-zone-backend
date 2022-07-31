@@ -179,7 +179,7 @@ def otp(request):
         if (int(otp)==int(no)):
             user1.is_active = True
             user1.save()
-            return redirect('login')
+            return redirect('/login/')
         else:
             user1.delete()
             # cu = CustomUser.objects.filter(first_name= un)

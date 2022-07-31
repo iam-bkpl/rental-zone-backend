@@ -181,27 +181,28 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url(../images/roomBG.webp);
-    opacity:1;
+    background-image: url(../assets/roomBG.webp);
+    opacity:0.9;
+    
 }
 
 .container {
   border-radius: 2px;
   box-shadow: 2px 4px 8px 0 rgb(0 0 0 / 10%);
-  border: solid 1px #d6d6d6;
+  border: solid 2px #d6d6d6;
   position:static;
   top: 50%;
   left: 50%;
-  max-width: 255px;
+  max-width: 270px;
   width: 100%;
   border-radius: 6px;
   background: linear-gradient(rgba(0, 0, 0, 0.3), rbga(0, 0, 0, 0.3));
   padding: 30px;
   margin-top: 90px;
   box-shadow: 7px 7px 60px;
-  height: auto;
-  background: url(../images/bg.jpg);
-  opacity: 0.9;
+  height: 382px;
+  background: url(../assets/bg1.jpg);
+  opacity:0.9;
 }
 
 .container header {

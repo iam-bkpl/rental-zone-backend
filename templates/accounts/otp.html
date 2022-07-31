@@ -20,7 +20,7 @@
 </head>
 
 <body>
-  <nav>
+  {% comment %} <nav>
     <input type="checkbox" id="show-menu">
     <label for="show-menu" class="menu-icon"><i class="fas fa-bars"></i></label>
     <div class="content">
@@ -45,7 +45,7 @@
         <li><a href="/accounts/register" class="navButton" >Register</a></li>
         {% endif%}
     </div>
-  </nav>
+  </nav> {% endcomment %}
 
   <!-- OPT DIV -->
   <div class="container">
@@ -56,8 +56,7 @@
               <div class="title">
                 Verify OTP
               </div>
-              
-              <form action=" {% url 'otp' %} " method="POST" class="mt-5">
+              <form action=" {% url 'login' %} " method="POST" class="mt-5">
                 {% csrf_token %}
             <!--  <input name="otp" class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(1)' maxlength=1 >
                 <input name="otp" class="otp" type="text" oninput='digitValidate(this)' onkeyup='tabChange(2)' maxlength=1 >

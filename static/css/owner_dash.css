@@ -312,7 +312,7 @@ nav .content .links{
     font-family: inherit;
     text-decoration: none;
     font-weight: bold;
-    margin: 1rem;
+    margin: 0;
   }
 
   a:hover{

@@ -57,11 +57,11 @@
             <p id="Namee">{{request.user.username}}</p>
             <p id="userType">( {{userInfo.user_type}} )</p>
             {%if userInfo.user_type == 'room_owner' %}
-            <a href="{% url 'addRoom' %} "> <button type="submit" class="btn" id="addbtn">ADD ROOM</button></a> <br>
+            <a href="{% url 'addRoom' %} "> <button type="submit" class="btn" id="addbtn">ADD<br> ROOM</button></a> 
             {% endif %}
-            <a href="/accounts/editProfile/{{request.user.id}}"> <button type="submit" class="btn" id="updatebtn">UPDATE PROFILE</button></a><br>
+            <a href="/accounts/editProfile/{{request.user.id}}"> <button type="submit" class="btn" id="updatebtn">UPDATE<br> PROFILE</button></a>
             <a href="/accounts/deleteProfile/{{request.user.id}}">
-            <button type="submit" class="btn" id="deletebtn">DELETE PROFILE</button>
+            <button type="submit" class="btn" id="deletebtn">DELETE<br> PROFILE</button>
         </a>
 
         </div>
