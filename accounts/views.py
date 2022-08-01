@@ -352,7 +352,14 @@ def deleteProfile(request,pk):
         # user.delete()
         messages.success(request,"User Deleted Successfully")
         # auth_logout(request)
-        logout(request)
+        if request.user.is_staff or request.user.is_superuser:
+            user = request.user
+            user.is_active = True
+            user.save()
+            return redirect('dashboard')
+            
+        else:   
+            logout(request)
             
     return render(request,'index.html')
     # return HttpResponse("Delete Page")

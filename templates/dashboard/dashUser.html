@@ -15,7 +15,7 @@
     <div class="col-div-8">
     <div class="box-8">
     <div class="content-box">
-    <a href=" {% url 'registerUser' %} " ><button> Create </button> </a>
+    <a href=" {% url 'register' %} " ><button> Create </button> </a>
     <br><br>
     <table class="appointments">
       <thead>
@@ -36,7 +36,7 @@
               <td>{{user.customuser.user_type}}</td>
               <td>{{user.customuser.phone}}</td>
               <td><a href=" {% url 'editProfile' user.id %}  "> <i class="far fa-edit"></i></a></td>
-              <td><a href=" "><i class="far fa-trash-alt"></i></a></td>
+              <td><a href="{% url 'deleteProfile' user.id %}  "><i class="far fa-trash-alt"></i></a></td>
             </tr>
             {% endfor %}
           <tr>

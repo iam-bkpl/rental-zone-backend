@@ -362,7 +362,10 @@ def rateRoomView(request,pk):
         else:
             return redirect('/')
             
-        return render(request,'rooms/rateRoom.html',context)
+        # return render(request,'rooms/rateRoom.html',context)
+        # return render(request,'rooms/roomView.html',context)
+        goTo   = '/roomView/'+str(pk)
+        return redirect(goTo)
     # else:
         # return HttpResponse("You are super admin")
     context=({'room':room,'user':customUser})
@@ -415,8 +418,8 @@ def deleteReview(request,pk):
         
         
     
-EMAIL_USE_TLS = True  
-EMAIL_HOST = 'smtp.gmail.com'  
-EMAIL_HOST_USER = 'iam.bkpl03@gmail.com'
-EMAIL_HOST_PASSWORD = 'dufyahaiaxyodxsw'
-EMAIL_PORT = 587
+# EMAIL_USE_TLS = True  
+# EMAIL_HOST = 'smtp.gmail.com'  
+# EMAIL_HOST_USER = 'iam.bkpl03@gmail.com'
+# EMAIL_HOST_PASSWORD = 'dufyahaiaxyodxsw'
+# EMAIL_PORT = 587
