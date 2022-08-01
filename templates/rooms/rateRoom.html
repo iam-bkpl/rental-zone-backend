@@ -37,7 +37,8 @@
     <h1>Rating</h1>
     <span id="result"></span>
     <br>
-    <form method="POST" action={% url 'roomList'  %} name="form" onsubmit="return validateForm()">
+    {% comment %} <form method="POST" action={% url 'roomView' 'room.id' %} name="form" onsubmit="return validateForm()"> {% endcomment %}
+      <form method="POST" action=" " name="form" onsubmit="return validateForm()">
       {% csrf_token %}
       <div class="form first">
         <div class="details personal">
